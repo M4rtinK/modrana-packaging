@@ -21,11 +21,11 @@ if TARGET not in ["sdist_harmattan", "sdist_fremantle"]:
 import os
 
 try:
-	from sdist_maemo import sdist_maemo as _sdist_maemo
-	sdist_maemo = _sdist_maemo
+  from sdist_maemo import sdist_maemo as _sdist_maemo
+  sdist_maemo = _sdist_maemo
 except ImportError:
-	sdist_maemo = None
-	print 'sdist_maemo command not available'
+  sdist_maemo = None
+  print('sdist_maemo command not available')
 
 from distutils.core import setup
 
@@ -58,28 +58,28 @@ print "%s SETUP.PY RUNNING" % PRETTY_APP_NAME
 
 
 def is_package(path):
-	return (
-		os.path.isdir(path) and
-		os.path.isfile(os.path.join(path, '__init__.py'))
-	)
+  return (
+    os.path.isdir(path) and
+    os.path.isfile(os.path.join(path, '__init__.py'))
+  )
 
 def find_packages(path, base="", includeRoot=False):
-	""" Find all packages in path """
-	if includeRoot:
-		assert not base, "Base not supported with includeRoot: %r" % base
-		rootPath, module_name = os.path.split(path)
-		yield module_name
-		base = module_name
-	for item in os.listdir(path):
-		dir = os.path.join(path, item)
-		if is_package( dir ):
-			if base:
-				module_name = "%(base)s.%(item)s" % vars()
-			else:
-				module_name = item
-			yield module_name
-			for name in find_packages(dir, module_name):
-				yield name
+  """ Find all packages in path """
+  if includeRoot:
+    assert not base, "Base not supported with includeRoot: %r" % base
+    rootPath, module_name = os.path.split(path)
+    yield module_name
+    base = module_name
+  for item in os.listdir(path):
+    dir = os.path.join(path, item)
+    if is_package( dir ):
+      if base:
+        module_name = "%(base)s.%(item)s" % vars()
+      else:
+        module_name = item
+      yield module_name
+      for name in find_packages(dir, module_name):
+        yield name
 
 ## list all files belonging to the application
 listOfAllPaths = []
@@ -131,36 +131,36 @@ if TARGET == "sdist_fremantle":
 
 
 setup(
-	name=APP_NAME,
-	version=VERSION,
-	description="ModRana is a flexible GPS navigation system.",
-	long_description=read('longdesc'),
-	author="Martin Kolman",
-	author_email="martin.kolman@gmail.com",
-	maintainer="Martin Kolman",
-	maintainer_email="martin.kolman@gmail.com",
-	url="http://www.modrana.org",
-	license="GNU GPLv3",
-	data_files=dataFiles,
-	requires=[
-		"PySide",
-	],
-	cmdclass={
-		'sdist_ubuntu': sdist_maemo,
-		'sdist_diablo': sdist_maemo,
-		'sdist_fremantle': sdist_maemo,
-		'sdist_harmattan': sdist_maemo,
-	},
-	options={
-		"sdist_ubuntu": {
-			"debian_package": APP_NAME,
-			"section": "navigation",
-			"copyright": "gpl",
-			"changelog": CHANGES,
-			"buildversion": str(BUILD),
-			"depends": "python, python-pyside.qtcore, python-pyside.qtgui, python-simplejson, python-gtk2",
-			"architecture": "any",
-		},
+  name=APP_NAME,
+  version=VERSION,
+  description="ModRana is a flexible GPS navigation system.",
+  long_description=read('longdesc'),
+  author="Martin Kolman",
+  author_email="martin.kolman@gmail.com",
+  maintainer="Martin Kolman",
+  maintainer_email="martin.kolman@gmail.com",
+  url="http://www.modrana.org",
+  license="GNU GPLv3",
+  data_files=dataFiles,
+  requires=[
+    "PySide",
+  ],
+  cmdclass={
+    'sdist_ubuntu': sdist_maemo,
+    'sdist_diablo': sdist_maemo,
+    'sdist_fremantle': sdist_maemo,
+    'sdist_harmattan': sdist_maemo,
+  },
+  options={
+    "sdist_ubuntu": {
+      "debian_package": APP_NAME,
+      "section": "navigation",
+      "copyright": "gpl",
+      "changelog": CHANGES,
+      "buildversion": str(BUILD),
+      "depends": "python, python-pyside.qtcore, python-pyside.qtgui, python-simplejson, python-gtk2",
+      "architecture": "any",
+    },
 #		"sdist_diablo": {
 #			"debian_package": APP_NAME,
 #			"Maemo_Display_Name": PRETTY_APP_NAME,
@@ -174,19 +174,19 @@ setup(
 #			"depends": "python2.5, python2.5-qt4-core, python2.5-qt4-gui, python-xdg, python-simplejson",
 #			"architecture": "any",
 #		},
-		"sdist_fremantle": {
-			"debian_package": APP_NAME,
-			"Maemo_Display_Name": PRETTY_APP_NAME,
-			#"Maemo_Upgrade_Description": CHANGES,
-			"Maemo_Bugtracker": BUGTRACKER_URL,
-			"Maemo_Icon_26": "icons/64x64/%s.png" % APP_NAME,
-			"section": "user/navigation",
-			"copyright": "gpl",
-			"changelog": CHANGES,
-			"buildversion": str(BUILD),
-			#"depends": "python2.5, python2.5-qt4-core, python2.5-qt4-gui, python2.5-qt4-maemo5, python-xdg, python-simplejson",
-			"depends": "python-qtmobility12, python-pyside.qtgui, python-pyside.qtdeclarative, qt-components-10, espeak, python-dbus, python-protobuf, python-location, python-osso, python-conic, python-hildon, python",
-			"architecture": "any",
+    "sdist_fremantle": {
+      "debian_package": APP_NAME,
+      "Maemo_Display_Name": PRETTY_APP_NAME,
+      #"Maemo_Upgrade_Description": CHANGES,
+      "Maemo_Bugtracker": BUGTRACKER_URL,
+      "Maemo_Icon_26": "icons/64x64/%s.png" % APP_NAME,
+      "section": "user/navigation",
+      "copyright": "gpl",
+      "changelog": CHANGES,
+      "buildversion": str(BUILD),
+      #"depends": "python2.5, python2.5-qt4-core, python2.5-qt4-gui, python2.5-qt4-maemo5, python-xdg, python-simplejson",
+      "depends": "python-qtmobility12, python-pyside.qtgui, python-pyside.qtdeclarative, qt-components-10, espeak, python-dbus, python-protobuf, python-location, python-osso, python-conic, python-hildon, python",
+      "architecture": "any",
       "postinst" : """#!/bin/sh
 #DEBHELPER#
 
@@ -200,22 +200,22 @@ python -m compileall %s
 
 exit 0
 """ % (INSTALLATION_PATH,INSTALLATION_PATH) ,
-		},
-		"sdist_harmattan": {
-			"debian_package": APP_NAME,
-			"Maemo_Display_Name": PRETTY_APP_NAME,
-			"Maemo_Upgrade_Description": CHANGES,
-			"Maemo_Bugtracker": BUGTRACKER_URL,
-			"Maemo_Icon_26": "icons/64x64/%s.png" % APP_NAME,
-			"MeeGo_Desktop_Entry_Filename": APP_NAME,
-			#"MeeGo_Desktop_Entry": "",
-			"section": "user/navigation",
-			"copyright": "gpl",
-			"changelog": CHANGES,
-			"buildversion": str(BUILD),
-			"depends": "python-pyside.qtgui, python-pyside.qtdeclarative, python-qtmobility",
+    },
+    "sdist_harmattan": {
+      "debian_package": APP_NAME,
+      "Maemo_Display_Name": PRETTY_APP_NAME,
+      "Maemo_Upgrade_Description": CHANGES,
+      "Maemo_Bugtracker": BUGTRACKER_URL,
+      "Maemo_Icon_26": "icons/64x64/%s.png" % APP_NAME,
+      "MeeGo_Desktop_Entry_Filename": APP_NAME,
+      #"MeeGo_Desktop_Entry": "",
+      "section": "user/navigation",
+      "copyright": "gpl",
+      "changelog": CHANGES,
+      "buildversion": str(BUILD),
+      "depends": "python-pyside.qtgui, python-pyside.qtdeclarative, python-qtmobility",
       "build_depends" : "debhelper (>= 5), python-support, aegis-builder",
-			"architecture": "any",
+      "architecture": "any",
       "aegis_manifest" : "harmattan/%s.aegis" % APP_NAME,
       "postinst" : """#!/bin/sh
 #DEBHELPER#
@@ -229,11 +229,11 @@ python -m compileall -f %s
 
 exit 0
 """ % (INSTALLATION_PATH,INSTALLATION_PATH),
-		},
-		"bdist_rpm": {
-			"requires": "REPLACEME",
-			"icon": "data/icons/64/%s.png" % APP_NAME,
-			"group": "REPLACEME",
-		},
-	},
+    },
+    "bdist_rpm": {
+      "requires": "REPLACEME",
+      "icon": "data/icons/64/%s.png" % APP_NAME,
+      "group": "REPLACEME",
+    },
+  },
 )
