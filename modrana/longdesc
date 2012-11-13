@@ -1,0 +1,12 @@
+ModRana is a flexible navigation system for mobile linux devices.
+ * support for various map layers
+ * POI manager
+ * turn-by-turn navigation with voice directions
+ * online amenity, Wikipedia & address search
+ * GPX tracklog support - both creating & visualisation 
+ * quick, elegant and touch friendly interface
+ * pinch zoom support (where supported)
+ * global landscape and portrait support + orientation locking
+ * efficient sqlite-based tile storage
+ * easily configurable
+ * powerful command-line interface

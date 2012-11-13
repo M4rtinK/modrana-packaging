@@ -1,0 +1,8 @@
+# copying packages between two obs instances
+osc -A opensuse copypac -t pub-meego  openSUSE:12.2 libglade2 home:MartinK:nemo
+
+# remove deleted files from project folder and add all new files
+osc ar
+
+# clone project
+osc co home:foo:poject

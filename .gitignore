@@ -1,0 +1,22 @@
+# packaging specific
+# * storing each package revision in Git is not really needed
+# as the scripts can easily produce it on demand so we exclude
+# the source and resulting tarballs and packages from Git
+modrana/dist/* # folder with current tarballs
+modrana-git/* # folder with current modRana source from the Github repository
+*.tar.gz
+*.dsc
+*.spec
+*.changes
+*.deb
+
+## generic files to ignore
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+
+#python specific
+*.pyc
+*.pyo
