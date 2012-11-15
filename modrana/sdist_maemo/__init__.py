@@ -29,6 +29,7 @@ from changes import Changes
 from dsc import Dsc
 import time
 import os
+import tarfile
 
 def copy_directory(source, target):
     print 'copy dir %s -> %s' % (source, target)
@@ -136,7 +137,8 @@ class sdist_maemo(Command):
         self.conflicts = None
         self.replaces = None
         self.aegis_manifest = None
-        
+        self.tarball_filename = None
+
 
     def finalize_options (self):
         self.set_undefined_options('sdist', ('dist_dir', 'dist_dir'))
@@ -240,6 +242,9 @@ class sdist_maemo(Command):
 
 #        if self.aegis_manifest is None:
 #          self.aegis_manifest = None
+        if self.tarball_filename is None:
+          self.tarball_filename = os.path.join(self.dist_dir,self.debian_package+'_'+self.version+'.tar.gz')
+
 
         #clean long_description (add a space before each next lines)
         self.Maemo_Upgrade_Description=self.Maemo_Upgrade_Description.replace("\r","").strip()
@@ -295,9 +300,9 @@ class sdist_maemo(Command):
 
         # TODO: only do this for the Nemo target
         #Create the Nemo specfile
-#        spec = SpecFile(self, DATA_DIR)
-#        print "SPEC SPEC"
-#        print spec._getContent()
+        spec = SpecFile(self, DATA_DIR)
+        print "SPEC SPEC"
+        print spec._getContent()
 
         if self.aegis_manifest:
           print("ADDING AEGIS BITS")
@@ -364,14 +369,14 @@ class sdist_maemo(Command):
         open(os.path.join(DEBIAN_DIR,"copyright"),"w").write(unicode(licence.getContent()).encode('utf-8'))
 
         #Delete tar if already exist as it will made add to the same tar
-        tarpath = os.path.join(self.dist_dir,self.debian_package+'_'+self.version+'.tar.gz')
+        tarpath = self.tarball_filename
         if os.path.exists(tarpath):
             os.remove(tarpath)
 
 
         #Now create the tar.gz
 
-        import tarfile
+
         def reset(tarinfo):
             tarinfo.uid = tarinfo.gid = 0
             tarinfo.uname = tarinfo.gname = "root"
