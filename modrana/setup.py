@@ -34,7 +34,10 @@ except ImportError:
 from distutils.core import setup
 
 def read(fname):
-  return open(os.path.join(os.path.dirname(__file__), fname)).read()
+  if os.path.exists(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+  else:
+    return ""
 
 ## Constants ##
 
