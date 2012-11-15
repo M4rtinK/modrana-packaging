@@ -335,8 +335,19 @@ class sdist_maemo(Command):
         clog_content+= self.debian_complete_changelog
         # write te Debian changelog file
         open(os.path.join(DEBIAN_DIR,"changelog"),"w").write(unicode(clog_content))
-        # update the complete Debian changelog file
-        # TODO
+        # save it to the complete Debian changelog file
+        def read(fname):
+          if os.path.exists(fname):
+            return open(fname).read()
+          else:
+            return ""
+
+        last_version = read("last_version").strip("\n")
+        if self.version != last_version:
+          with open('debian_changelog','w') as f:
+            f.write(clog_content)
+        # to append to the changelog without changing package version,
+        # just delete the "last_version" file
 
         #Create the pre/post inst/rm Script
         if self.preinst is not None:
@@ -389,7 +400,6 @@ class sdist_maemo(Command):
 
 
         #Now create the tar.gz
-
 
         def reset(tarinfo):
             tarinfo.uid = tarinfo.gid = 0
