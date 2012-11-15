@@ -20,6 +20,7 @@ from distutils.file_util import copy_file
 from distutils.dir_util import copy_tree, remove_tree, mkpath
 import shutil
 from rules import Rules
+from specfile import SpecFile
 from changelog import Changelog
 from control import Control
 from datetime import datetime
@@ -284,14 +285,19 @@ class sdist_maemo(Command):
         self.run_command('install')
         
         #Remove the bloody egg-info files that are not needed
-        remove_tree("build/modrana/usr/local")
-        
+        remove_tree("build/%s/usr/local" % self.debian_package)
+
         #Create the debian rules
-        rules = Rules(self.debian_package,DATA_DIR, self.aegis_manifest!=None)
+        rules = Rules(self.debian_package,DATA_DIR, self.aegis_manifest is not None)
         dirs = rules.dirs
         open(os.path.join(DEBIAN_DIR,"rules"),"w").write(unicode(rules.getContent()).encode('utf-8'))
         os.chmod(os.path.join(DEBIAN_DIR,"rules"),0755)
 
+        # TODO: only do this for the Nemo target
+        #Create the Nemo specfile
+#        spec = SpecFile(self, DATA_DIR)
+#        print "SPEC SPEC"
+#        print spec._getContent()
 
         if self.aegis_manifest:
           print("ADDING AEGIS BITS")
@@ -372,7 +378,7 @@ class sdist_maemo(Command):
             return tarinfo
         tar = tarfile.open(tarpath, 'w:gz')
         #tar.add(self.dist_dir,'.')
-        tar.add(self.build_dir,'.')
+        tar.add(self.build_dir, self.debian_package+'-'+self.version)
         tar.close()
 
         #Clean the build dir
