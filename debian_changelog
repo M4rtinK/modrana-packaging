@@ -15,7 +15,7 @@ modrana (0.37.5) stable; urgency=low
     * this enables seamless addition of more layers
   * 3 new map layers from Stamen Design
     * Toner
-  * Waterocolor
+  * Watercolor
     * Terrain - USA only
   * 2 new public transport layers
     * Opnvkarte
