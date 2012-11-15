@@ -154,7 +154,17 @@ if TARGET == "sdist_fremantle":
   dataFiles.extend([ ("/usr/share/icons/hicolor/64x64/apps", ["fremantle/modrana-qml.png"]) ])
 
 
-# finishing tasks
+## finishing tasks
+
+## save combined changes file if version changed
+## (to save combined changes if the version doesn't
+## change, just delete the "last_version" file)
+last_version = read("last_version").strip("\n")
+if VERSION != last_version:
+  with open('changes','w') as f:
+    f.write(CHANGES)
+
+## record last build version
 with open('last_version','w') as f:
   f.write(VERSION)
 
