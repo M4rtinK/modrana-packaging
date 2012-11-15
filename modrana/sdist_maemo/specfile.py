@@ -12,6 +12,7 @@
 ## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ## GNU General Public License for more details.
 
+## modified by Martin Kolman for usage with sdist_maemo
 
 import os
 from os.path import curdir, sep, pardir, join, abspath, commonprefix
