@@ -41,7 +41,7 @@ class Rules:
         self.header(self.rules)
         
         self.rules.append('\tmkdir -p "$(CURDIR)/debian/%s"' % self.package_name)
-        print self.rules
+#        print self.rules
         for root, dirs, fs in os.walk(self.origin_dir):
             fpath = relpath(root,self.origin_dir)
             
