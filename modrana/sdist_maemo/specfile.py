@@ -46,7 +46,10 @@ class SpecFile(object):
                 #print root,dirs,f
                 #print fpath
 
-                files.append(os.path.join(self.package_name,fpath,f))
+                files.append((
+                  os.path.join('build', self.package_name,fpath,f),
+                  os.path.join("/", fpath,f))
+                )
 
         self.__files = files
         self.options = {
@@ -67,19 +70,15 @@ class SpecFile(object):
             'postrm' : main_command.postre,
             'changeslog' : main_command.changelog,
         }
-        print "FILES"
-        print files
-
-
 
     def _getContent(self):
         rules = []
         files = []
-        for path in self.__files:
+        for path, dest_path in self.__files:
             if os.path.isfile(path): # it's a file
-                dst_file_path = "%{buildroot}" + path
-                dst_dir = "%{buildroot}" + os.path.dirname(path)
-                files.append(path)
+                dst_file_path = "%{buildroot}" + dest_path
+                dst_dir = "%{buildroot}" + os.path.dirname(dest_path)
+                files.append(dest_path)
                 rules.append('mkdir -p "%s"' % dst_dir)
 
                 # make a line RULES to be sure the destination folder
