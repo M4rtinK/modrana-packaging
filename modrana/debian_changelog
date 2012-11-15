@@ -1,4 +1,5 @@
 modrana (0.37.5) stable; urgency=low
+
   * merged Wikiwides Handmade routing
   * reworked routing on-screen menu
   * it is now possible to route through waypoints in online routing
@@ -19,4 +20,5 @@ modrana (0.37.5) stable; urgency=low
   * fix online elevation lookup
   * Handmade route length fix by Wikiwide - thanks ! :)
   * QML GUI now can set mode
+
 -- Martin Kolman <martin.kolman@gmail.com>  Thu Nov 15 2012
