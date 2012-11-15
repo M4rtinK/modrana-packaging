@@ -1,0 +1,21 @@
+* Thu Nov 15 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.5
+- merged Wikiwides Handmade routing
+- reworked routing on-screen menu
+- it is now possible to route through waypoints in online routing
+- layer group support (in the layer selection menu)
+ - this enables seamless addition of more layers
+- 3 new map layers from Stamen Design
+ - Toner
+ - Waterocolor
+ - Terain - USA only
+- 2 new public transport layers
+ - Opnvkarte
+ - transparent public transport overlay
+- new toplevel tracklogs menu
+ - enables easy clearing of all visible tracklogs
+- icon update for search presets
+- fix back icon appearance in route profile detail menu
+- the centering button is now 50% transparent
+- fix online elevation lookup
+- Handmade route length fix by Wikiwide - thanks ! :)
+- QML GUI now can set mode
