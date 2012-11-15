@@ -1,9 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# modRana setup.py
+
 import glob, re
 
 import sys
+import time
+
 reload(sys).setdefaultencoding("UTF-8")
 
 # check for startup arguments
@@ -36,6 +40,11 @@ def read(fname):
 
 APP_NAME="modrana"
 PRETTY_APP_NAME="modRana"
+AUTHOR="Martin Kolman"
+AUTHOR_EMAIL="martin.kolman@gmail.com"
+# in this case: author = maintainer
+MAINTAINER = AUTHOR
+MAINTAINER_EMAIL = AUTHOR_EMAIL
 VERSION=read("version").strip("\n")
 BUILD="0"
 DESKTOP_FILE_PATH="/usr/share/applications"
@@ -43,9 +52,24 @@ FREMANTLE_DESKTOP_FILE_PATH = os.path.join(DESKTOP_FILE_PATH, "hildon")
 INSTALLATION_PATH="/opt/modrana"
 ICON_CATEGORY="apps"
 ICON_SIZES=[80,64]
-## load changelog from file
-CHANGES = "" + read("changelog").strip()
 BUGTRACKER_URL = "http://talk.maemo.org/showthread.php?t=58861"
+PROJECT_URL = "http://www.modrana.org"
+## load current changelog from the current_changelog file,
+## add a header to it & append the complete changelog
+time_stamp = time.strftime("%a %b %d %Y", time.gmtime())
+change_header = '* %s %s <%s> - %s\n' % (
+  time_stamp, MAINTAINER, MAINTAINER_EMAIL, VERSION
+)
+## create combined changes file
+CURRENT_CHANGES = change_header
+CURRENT_CHANGES += read("current_changelog").strip()
+
+CHANGES = CURRENT_CHANGES
+CHANGES += "\n"
+CHANGES += read("changes").strip()
+
+## get the complete Debian changelog (without entry for this build)
+DEBIAN_COMPLETE_CHANGELOG = read('debian_changelog').strip()
 
 if TARGET == "sdist_harmattan":
   INPUT_DESKTOP_FILE="harmattan/%s.desktop" % APP_NAME
@@ -130,16 +154,20 @@ if TARGET == "sdist_fremantle":
   dataFiles.extend([ ("/usr/share/icons/hicolor/64x64/apps", ["fremantle/modrana-qml.png"]) ])
 
 
+# finishing tasks
+with open('last_version','w') as f:
+  f.write(VERSION)
+
 setup(
   name=APP_NAME,
   version=VERSION,
   description="ModRana is a flexible GPS navigation system.",
   long_description=read('longdesc'),
-  author="Martin Kolman",
-  author_email="martin.kolman@gmail.com",
-  maintainer="Martin Kolman",
-  maintainer_email="martin.kolman@gmail.com",
-  url="http://www.modrana.org",
+  author=AUTHOR,
+  author_email=AUTHOR_EMAIL,
+  maintainer=MAINTAINER,
+  maintainer_email=MAINTAINER_EMAIL,
+  url=PROJECT_URL,
   license="GNU GPLv3",
   data_files=dataFiles,
   requires=[
@@ -182,7 +210,7 @@ setup(
       "Maemo_Icon_26": "icons/64x64/%s.png" % APP_NAME,
       "section": "user/navigation",
       "copyright": "gpl",
-      "changelog": CHANGES,
+      "changelog": CURRENT_CHANGES,
       "buildversion": str(BUILD),
       #"depends": "python2.5, python2.5-qt4-core, python2.5-qt4-gui, python2.5-qt4-maemo5, python-xdg, python-simplejson",
       "depends": "python-qtmobility12, python-pyside.qtgui, python-pyside.qtdeclarative, qt-components-10, espeak, python-dbus, python-protobuf, python-location, python-osso, python-conic, python-hildon, python",
@@ -201,7 +229,7 @@ python -m compileall %s
 exit 0
 """ % (INSTALLATION_PATH,INSTALLATION_PATH) ,
     },
-    "sdist_harmattan": {
+    "sdist_harmattan": { # also serves for Nemo at the moment
       "debian_package": APP_NAME,
       "Maemo_Display_Name": PRETTY_APP_NAME,
       "Maemo_Upgrade_Description": CHANGES,
@@ -211,12 +239,13 @@ exit 0
       #"MeeGo_Desktop_Entry": "",
       "section": "user/navigation",
       "copyright": "gpl",
-      "changelog": CHANGES,
+      "changelog": CURRENT_CHANGES,
       "buildversion": str(BUILD),
       "depends": "python-pyside.qtgui, python-pyside.qtdeclarative, python-qtmobility",
       "build_depends" : "debhelper (>= 5), python-support, aegis-builder",
       "architecture": "any",
       "aegis_manifest" : "harmattan/%s.aegis" % APP_NAME,
+      "debian_complete_changelog" : DEBIAN_COMPLETE_CHANGELOG,
       "postinst" : """#!/bin/sh
 #DEBHELPER#
 echo "removing old *.pyc files"
