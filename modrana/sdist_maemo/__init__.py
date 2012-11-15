@@ -198,6 +198,8 @@ class sdist_maemo(Command):
 
         self.name = self.distribution.get_name()
 
+        self.url = self.distribution.get_url()
+
         if self.debian_package is None:
             self.debian_package = self.name
 

@@ -59,7 +59,7 @@ class SpecFile(object):
             'summary' : main_command.description,
             'section' : main_command.section,
             'license' : main_command.copyright,
-            'url' : 'http://www.modrana.org', #TODO: get this from setup.py
+            'url' : main_command.url, #TODO: get this from setup.py
             'sources' : main_command.tarball_filename,
             'builddepends' : main_command.build_depends,
             'depends' : main_command.depends,
