@@ -16,7 +16,7 @@ modrana (0.37.5) stable; urgency=low
   * 3 new map layers from Stamen Design
     * Toner
   * Waterocolor
-    * Terain - USA only
+    * Terrain - USA only
   * 2 new public transport layers
     * Opnvkarte
     * transparent public transport overlay
