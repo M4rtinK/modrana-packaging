@@ -105,7 +105,9 @@ class sdist_maemo(Command):
                     ('dist-dir=', 'd',
                      "directory to put the source distribution archive(s) in [default: dist]"),
                     ("aegis-manifest=", None,
-                     'aegis manifest to use')
+                     'aegis manifest to use'),
+                    ("debian-complete-changelog=", None,
+                     'complete Debian changelog')
                    ]
 
     def initialize_options (self):
@@ -138,7 +140,7 @@ class sdist_maemo(Command):
         self.replaces = None
         self.aegis_manifest = None
         self.tarball_filename = None
-
+        self.debian_complete_changelog = None
 
     def finalize_options (self):
         self.set_undefined_options('sdist', ('dist_dir', 'dist_dir'))
@@ -198,6 +200,9 @@ class sdist_maemo(Command):
 
         if self.debian_package is None:
             self.debian_package = self.name
+
+        if self.debian_complete_changelog is None:
+          self.debian_complete_changelog = ""
 
         self.description = self.distribution.get_description()
         self.long_description = self.distribution.get_long_description()
@@ -321,8 +326,17 @@ class sdist_maemo(Command):
         #Create the debian changelog
         d=datetime.now()
         self.buildDate=d.strftime("%a, %d %b %Y %H:%M:%S +0000")
+        # convert the generic "changes" changelog to Debian format
+        # TODO: implement this
+
         clog = Changelog(self.debian_package,self.version,self.buildversion,self.changelog,self.distribution.get_maintainer(),self.distribution.get_maintainer_email(),self.buildDate)
-        open(os.path.join(DEBIAN_DIR,"changelog"),"w").write(unicode(clog.getContent()).encode('utf-8'))
+        clog_content = clog.getContent().encode('utf-8')
+        clog_content+="\n"
+        clog_content+= self.debian_complete_changelog
+        # write te Debian changelog file
+        open(os.path.join(DEBIAN_DIR,"changelog"),"w").write(unicode(clog_content))
+        # update the complete Debian changelog file
+        # TODO
 
         #Create the pre/post inst/rm Script
         if self.preinst is not None:
