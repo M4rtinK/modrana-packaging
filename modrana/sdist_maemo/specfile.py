@@ -103,6 +103,13 @@ class SpecFile(object):
 # handle binaries in the otherwise noarch package
 %%define debug_package %%{nil}
 %%define _binaries_in_noarch_packages_terminate_build   0
+# handle *.pyc & *.pyo unpackaged files
+# TODO: find how they actually show up in the package,
+# as they definitely are not in the tarball and should
+# be generated on the target device using the postinst script
+# OR: see python packaging guidelines if shipping with
+# pre-compiled pyc & pyo is OK
+%%define _unpackaged_files_terminate_build 0
 Name: %(name)s
 Version: %(version)s
 Release: %(buildversion)s
