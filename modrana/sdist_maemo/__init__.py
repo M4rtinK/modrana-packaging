@@ -139,6 +139,7 @@ class sdist_maemo(Command):
         self.conflicts = None
         self.replaces = None
         self.aegis_manifest = None
+        self.tarball_path = None
         self.tarball_filename = None
         self.debian_complete_changelog = None
 
@@ -250,8 +251,10 @@ class sdist_maemo(Command):
 #        if self.aegis_manifest is None:
 #          self.aegis_manifest = None
         if self.tarball_filename is None:
-          self.tarball_filename = os.path.join(self.dist_dir,self.debian_package+'_'+self.version+'.tar.gz')
+          self.tarball_filename = self.debian_package+'_'+self.version+'.tar.gz'
 
+        if self.tarball_path is None:
+          self.tarball_path = os.path.join(self.dist_dir,self.tarball_filename)
 
         #clean long_description (add a space before each next lines)
         self.Maemo_Upgrade_Description=self.Maemo_Upgrade_Description.replace("\r","").strip()
@@ -400,7 +403,7 @@ class sdist_maemo(Command):
         open(os.path.join(DEBIAN_DIR,"copyright"),"w").write(unicode(licence.getContent()).encode('utf-8'))
 
         #Delete tar if already exist as it will made add to the same tar
-        tarpath = self.tarball_filename
+        tarpath = self.tarball_path
         if os.path.exists(tarpath):
             os.remove(tarpath)
 
