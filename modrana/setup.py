@@ -17,9 +17,9 @@ if len(sys.argv) < 2:
   sys.exit(1)
 
 TARGET = sys.argv[1]
-if TARGET not in ["sdist_harmattan", "sdist_fremantle"]:
+if TARGET not in ["sdist_harmattan", "sdist_fremantle", "sdist_nemo"]:
   print("Error, wrong target specified")
-  print("use sdist_ubuntu, sdist_harmattan or sdist_fremantle")
+  print("use sdist_harmattan, sdist_fremantle or sdist_nemo")
   sys.exit(2)
 
 import os
@@ -176,6 +176,7 @@ setup(
     'sdist_diablo': sdist_maemo,
     'sdist_fremantle': sdist_maemo,
     'sdist_harmattan': sdist_maemo,
+    'sdist_nemo': sdist_maemo,
   },
   options={
     "sdist_ubuntu": {
@@ -227,7 +228,7 @@ python -m compileall %s
 exit 0
 """ % (INSTALLATION_PATH,INSTALLATION_PATH) ,
     },
-    "sdist_harmattan": { # also serves for Nemo at the moment
+    "sdist_harmattan": {
       "debian_package": APP_NAME,
       "Maemo_Display_Name": PRETTY_APP_NAME,
       "Maemo_Upgrade_Description": CHANGES,
@@ -244,6 +245,34 @@ exit 0
       "architecture": "any",
       "aegis_manifest" : "harmattan/%s.aegis" % APP_NAME,
       "debian_complete_changelog" : DEBIAN_COMPLETE_CHANGELOG,
+      "postinst" : """#!/bin/sh
+#DEBHELPER#
+echo "removing old *.pyc files"
+rm `find %s -name '*.pyc'`
+
+echo "generating *.pyc files"
+# generate *.pyc files to speed up startup
+# also, after changing the permissions user ran python can't create them
+python -m compileall -f %s
+
+exit 0
+""" % (INSTALLATION_PATH,INSTALLATION_PATH),
+    },
+    "sdist_nemo": {
+      "debian_package": APP_NAME,
+      "Maemo_Display_Name": PRETTY_APP_NAME,
+      "Maemo_Upgrade_Description": CHANGES,
+      "Maemo_Bugtracker": BUGTRACKER_URL,
+      "Maemo_Icon_26": "icons/64x64/%s.png" % APP_NAME,
+      "MeeGo_Desktop_Entry_Filename": APP_NAME,
+      #"MeeGo_Desktop_Entry": "",
+      "section": "user/navigation",
+      "copyright": "gpl",
+      "changelog": CHANGES,
+      "buildversion": str(BUILD),
+      "depends": "python, python-pyside",
+      "build_depends" : "python-devel",
+      "architecture": "any",
       "postinst" : """#!/bin/sh
 #DEBHELPER#
 echo "removing old *.pyc files"
