@@ -99,7 +99,7 @@ class SpecFile(object):
         self.options['packedfiles'] = '\n'.join(files)
 
         content = """
-%%define debug_package %{nil}
+%%define debug_package %%{nil}
 Name: %(name)s
 Version: %(version)s
 Release: %(buildversion)s
