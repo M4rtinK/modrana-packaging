@@ -47,7 +47,7 @@ class SpecFile(object):
                 #print fpath
 
                 files.append((
-                  os.path.join('build', self.package_name,fpath,f),
+                  os.path.join(self.package_name,fpath,f),
                   os.path.join("/", fpath,f))
                 )
 
@@ -75,7 +75,11 @@ class SpecFile(object):
         rules = []
         files = []
         for path, dest_path in self.__files:
-            if os.path.isfile(path): # it's a file
+            # local path to the files
+            # (save the path without the build prefix as that is what will be
+            # visible once the tarball is unpacked)
+            build_path = os.path.join('build', path)
+            if os.path.isfile(build_path): # it's a file
                 dst_file_path = "%{buildroot}" + dest_path
                 dst_dir = "%{buildroot}" + os.path.dirname(dest_path)
                 files.append(dest_path)
@@ -86,7 +90,7 @@ class SpecFile(object):
                 rules.append('cp -a "%s" "%s"' %
                             (path, dst_file_path))
 
-            elif os.path.isdir(path): # just create an (empty?) folder
+            elif os.path.isdir(build_path): # just create an (empty?) folder
               rules.append('mkdir -p "%s"' % path)
             else:
               print('error, unsupported path:\n%s' % path)
@@ -95,6 +99,7 @@ class SpecFile(object):
         self.options['packedfiles'] = '\n'.join(files)
 
         content = """
+%define debug_package %{nil}
 Name: %(name)s
 Version: %(version)s
 Release: %(buildversion)s
@@ -113,7 +118,7 @@ Requires: %(depends)s
 %(description)s
 
 %%prep
-%%setup -n %(name)s
+%%setup
 
 %%build
 
