@@ -99,7 +99,10 @@ class SpecFile(object):
         self.options['packedfiles'] = '\n'.join(files)
 
         content = """
+# due to the current inclusion of monav-server binaries,
+# handle binaries in the otherwise noarch package
 %%define debug_package %%{nil}
+%%define _binaries_in_noarch_packages_terminate_build   0
 Name: %(name)s
 Version: %(version)s
 Release: %(buildversion)s
