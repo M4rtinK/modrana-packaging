@@ -120,7 +120,9 @@ URL: %(url)s
 Source0: %(sources)s
 
 BuildRoot: %%{_tmppath}/%%{name}-%%{version}-%%{release}-root-%%(%%{__id_u} -n)
-BuildArch: noarch
+# disable noarch as there are still the monav-server binaries
+# in the RPM, otherwise the build will fail
+# BuildArch: noarch
 BuildRequires: %(builddepends)s
 Requires: %(depends)s
 
