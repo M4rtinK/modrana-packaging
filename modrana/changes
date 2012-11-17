@@ -1,3 +1,15 @@
+* Fri Nov 16 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.14
+- try to disable noarch
+* Fri Nov 16 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.13
+- handle unpackaged pyc & pyo files in RPM build
+* Fri Nov 16 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.12
+- try a fix for monav-server binaries breaking OBS build
+* Fri Nov 16 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.11
+- try a fix for monav-server binaries breaking OBS build
+* Fri Nov 16 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.9
+- fix paths in Nemo specfile
+* Fri Nov 16 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.8
+- fix dependencies in Nemo specfile
 * Thu Nov 15 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.5
 - merged Wikiwides Handmade routing
 - reworked routing on-screen menu
