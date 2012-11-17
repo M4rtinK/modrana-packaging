@@ -18,6 +18,7 @@ Implements the Distutils 'sdist_maemo' command.
 from distutils.core import Command
 from distutils.file_util import copy_file
 from distutils.dir_util import copy_tree, remove_tree, mkpath
+import locale
 import shutil
 from rules import Rules
 from specfile import SpecFile
@@ -535,10 +536,6 @@ class sdist_nemo(Command):
                      "Override the module install path to allow packaging from alternative platforms"),
                     ('dist-dir=', 'd',
                      "directory to put the source distribution archive(s) in [default: dist]"),
-                    ("aegis-manifest=", None,
-                     'aegis manifest to use'),
-                    ("debian-complete-changelog=", None,
-                     'complete Debian changelog')
                    ]
 
     def initialize_options (self):
@@ -561,6 +558,8 @@ class sdist_nemo(Command):
         self.Maemo_Upgrade_Description = None
         self.Maemo_Flags = None
         self.MeeGo_Desktop_Entry_Filename = None
+        # TODO: remove Maemo/MeeGo specific stuff ?
+        # -> check if something from it persisted to Nemo
         self.postinst = None
         self.preinst = None
         self.prere = None
@@ -569,10 +568,8 @@ class sdist_nemo(Command):
         self.urgency = None
         self.conflicts = None
         self.replaces = None
-        self.aegis_manifest = None
         self.tarball_path = None
         self.tarball_filename = None
-        self.debian_complete_changelog = None
 
     def finalize_options (self):
         self.set_undefined_options('sdist', ('dist_dir', 'dist_dir'))
@@ -632,12 +629,6 @@ class sdist_nemo(Command):
 
         self.url = self.distribution.get_url()
 
-        if self.debian_package is None:
-            self.debian_package = self.name
-
-        if self.debian_complete_changelog is None:
-          self.debian_complete_changelog = ""
-
         self.description = self.distribution.get_description()
         self.long_description = self.distribution.get_long_description()
 
@@ -650,13 +641,6 @@ class sdist_nemo(Command):
         self.long_description = "\n ".join(self.long_description.split("\n"))
 
         self.version = self.distribution.get_version()
-        self.standarts_version = "3.7.3"
-
-        if self.repository is None:
-            self.repository = 'Extras'
-
-        if self.urgency is None:
-            self.urgency = 'low'
 
         if self.buildversion is None:
             self.buildversion = "1"
@@ -679,8 +663,6 @@ class sdist_nemo(Command):
         if self.Maemo_Flags is None:
             self.Maemo_Flags = 'visible'
 
-#        if self.aegis_manifest is None:
-#          self.aegis_manifest = None
         if self.tarball_filename is None:
           self.tarball_filename = self.debian_package+'_'+self.version+'.tar.gz'
 
@@ -713,10 +695,8 @@ class sdist_nemo(Command):
         """
 
         #Create folders and copy sources files
-        DEBIAN_DIR = os.path.join(self.build_dir,'debian')
         DATA_DIR = os.path.join(self.build_dir,self.debian_package)
 
-        mkpath(DEBIAN_DIR)
         mkpath(self.dist_dir)
         #mkpath(os.path.join(DATA_DIR,'usr','bin'))
 
@@ -731,150 +711,45 @@ class sdist_nemo(Command):
         self.run_command('install')
 
         #Remove the bloody egg-info files that are not needed
-        remove_tree("build/%s/usr/local" % self.debian_package)
+        remove_tree("build/%s/usr/local" % self.name)
+        # TODO: is this still needed for Nemo package ?
 
-        #Create the debian rules
-        rules = Rules(self.debian_package,DATA_DIR, self.aegis_manifest is not None)
-        dirs = rules.dirs
-        open(os.path.join(DEBIAN_DIR,"rules"),"w").write(unicode(rules.getContent()).encode('utf-8'))
-        os.chmod(os.path.join(DEBIAN_DIR,"rules"),0755)
-
-        # TODO: only do this for the Nemo target
         #Create the Nemo specfile
         spec = SpecFile(self, DATA_DIR)
         spec_content = spec._getContent()
         print "SPECFILE:"
         print spec_content
-        spec_filename = self.debian_package+'_'+self.version+'.spec'
+        spec_filename = self.name+'_'+self.version+'.spec'
         spec_path = os.path.join(self.dist_dir, spec_filename)
         open(spec_path,"w").write(unicode(spec_content).encode('utf-8'))
         os.chmod(spec_path,0755)
-
-        if self.aegis_manifest:
-          #create an empty aegis manifest
-          open(os.path.join(DEBIAN_DIR,"manifest.aegis"),"w")
-
-          # copy aegis declaration file
-          shutil.copy(self.aegis_manifest, DEBIAN_DIR)
-
-        #Create the debian compat
-        open(os.path.join(DEBIAN_DIR,"compat"),"w").write("5\n")
-
-        #Create the debian dirs
-        open(os.path.join(DEBIAN_DIR,"dirs"),"w").write("\n".join(dirs))
-
-        #Create the debian changelog
-        d=datetime.now()
-        self.buildDate=d.strftime("%a, %d %b %Y %H:%M:%S +0000")
-        # convert the generic "changes" changelog to Debian format
-        # TODO: implement this
-
-        clog = Changelog(self.debian_package,self.version,self.buildversion,self.changelog,self.distribution.get_maintainer(),self.distribution.get_maintainer_email(),self.buildDate)
-        clog_content = clog.getContent().encode('utf-8')
-        clog_content+="\n"
-        clog_content+= self.debian_complete_changelog
-        # write te Debian changelog file
-        open(os.path.join(DEBIAN_DIR,"changelog"),"w").write(unicode(clog_content))
-        # save it to the complete Debian changelog file
-        def read(fname):
-          if os.path.exists(fname):
-            return open(fname).read()
-          else:
-            return ""
-
-        last_version = read("last_version").strip("\n")
-        if self.version != last_version:
-          with open('debian_changelog','w') as f:
-            f.write(clog_content)
-        # to append to the changelog without changing package version,
-        # just delete the "last_version" file
-
-        #Create the pre/post inst/rm Script
-        if self.preinst is not None:
-            self.mkscript(self.preinst ,os.path.join(DEBIAN_DIR,"preinst"))
-        if self.postinst is not None:
-            self.mkscript(self.postinst,os.path.join(DEBIAN_DIR,"postinst"))
-        if self.prere is not None:
-            self.mkscript(self.prere  ,os.path.join(DEBIAN_DIR,"prerm"))
-        if self.postre is not None:
-            self.mkscript(self.postre ,os.path.join(DEBIAN_DIR,"postrm"))
-
-        #Create the control file
-        control = Control(self.debian_package,
-                    self.section,
-                    self.distribution.get_maintainer(),
-                    self.distribution.get_maintainer_email(),
-                    self.architecture,
-                    self.depends,
-                    self.build_depends,
-                    self.suggests,
-                    self.description,
-                    self.long_description,
-                    self.conflicts,
-                    self.replaces,
-                    self.standarts_version,
-
-                    optionnal = {
-                        'XB-Maemo-Display-Name':self.Maemo_Display_Name,
-                        'XB-Maemo-Upgrade-Description':self.Maemo_Upgrade_Description,
-                        'XSBC-Bugtracker':self.Maemo_Bugtracker,
-                        'XB-Maemo-Icon-26':self.getIconContent(self.Maemo_Icon_26),
-                        'XB-Maemo-Flags':self.Maemo_Flags,
-                        'XB-Meego-Desktop-Entry-Filename':self.MeeGo_Desktop_Entry_Filename
-                        }
-                    )
-        open(os.path.join(DEBIAN_DIR,"control"),"w").write(unicode(control.getContent()).encode('utf-8'))
-
-        #Create the debian licence file
-        licence = Licence(self.copyright,
-                          self.distribution.get_maintainer(),
-                          self.distribution.get_maintainer_email(),
-                          self.buildDate,
-                          str(datetime.now().year))
-        open(os.path.join(DEBIAN_DIR,"copyright"),"w").write(unicode(licence.getContent()).encode('utf-8'))
 
         #Delete tar if already exist as it will made add to the same tar
         tarpath = self.tarball_path
         if os.path.exists(tarpath):
             os.remove(tarpath)
 
-
         #Now create the tar.gz
-
         def reset(tarinfo):
             tarinfo.uid = tarinfo.gid = 0
             tarinfo.uname = tarinfo.gname = "root"
             return tarinfo
         tar = tarfile.open(tarpath, 'w:gz')
-        #tar.add(self.dist_dir,'.')
         tar.add(self.build_dir, self.debian_package+'-'+self.version)
         tar.close()
 
         #Clean the build dir
-        remove_tree(DEBIAN_DIR)
         remove_tree(DATA_DIR)
 
-        #Create the Dsc file
-        import locale
-        try:
-            old_locale,iso=locale.getlocale(locale.LC_TIME)
-            locale.setlocale(locale.LC_TIME,'en_US')
-        except:
-            pass
-        dsccontent = Dsc("%s"%(self.standarts_version),
-                     self.build_depends,
-                     (os.path.join(self.dist_dir,self.debian_package+'_'+self.version+'.tar.gz'),),
-                     Format='1.0',
-                     Source=self.debian_package,
-                     Version="%s"%(self.version),
-                     Maintainer="%s <%s>"%(self.distribution.get_maintainer(),self.distribution.get_maintainer_email()),
-                     Architecture="%s"%self.architecture,
-                    )
-        f = open(os.path.join(self.dist_dir,self.debian_package+'_'+self.version+'.dsc'),"wb")
-        f.write(unicode(dsccontent._getContent()).encode('utf-8'))
-        f.close()
-
         #Changes file
+        # TODO: RPM style changes file
+
+        try: # TODO: check if this is needed
+          old_locale,iso=locale.getlocale(locale.LC_TIME)
+          locale.setlocale(locale.LC_TIME,'en_US')
+        except:
+          pass
+
         changescontent = Changes(
                         "%s <%s>"%(self.distribution.get_maintainer(),self.distribution.get_maintainer_email()),
                         "%s"%self.description,
@@ -902,4 +777,3 @@ class sdist_nemo(Command):
             locale.setlocale(locale.LC_TIME,old_locale)
         except:
             pass
-
