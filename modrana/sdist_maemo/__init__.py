@@ -309,17 +309,6 @@ class sdist_maemo(Command):
         open(os.path.join(DEBIAN_DIR,"rules"),"w").write(unicode(rules.getContent()).encode('utf-8'))
         os.chmod(os.path.join(DEBIAN_DIR,"rules"),0755)
 
-        # TODO: only do this for the Nemo target
-        #Create the Nemo specfile
-        spec = SpecFile(self, DATA_DIR)
-        spec_content = spec._getContent()
-        print "SPECFILE:"
-        print spec_content
-        spec_filename = self.debian_package+'_'+self.version+'.spec'
-        spec_path = os.path.join(self.dist_dir, spec_filename)
-        open(spec_path,"w").write(unicode(spec_content).encode('utf-8'))
-        os.chmod(spec_path,0755)
-
         if self.aegis_manifest:
           #create an empty aegis manifest
           open(os.path.join(DEBIAN_DIR,"manifest.aegis"),"w")
