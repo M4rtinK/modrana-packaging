@@ -3,8 +3,6 @@
 
 # modRana setup.py
 
-import glob, re
-
 import sys
 import time
 
@@ -114,8 +112,6 @@ for (dirpath, dirnames, filenames) in os.walk('src'):
   for filename in filenames:
     listOfAllPaths.append(os.sep.join([dirpath, filename]))
 
-
-
 ## drop the root folder path for the second item in the tuple
 
 ## NOTE: this might not be fully OS agnostic
@@ -127,12 +123,6 @@ for (dirpath, dirnames, filenames) in os.walk('src'):
 ## * os.path.join should reconstruct the path back together including the new path root folder
 ## * os.path.dirname drops the filenames (or else we would get for example /opt/mieru/mieru.py/mieru.py
 dataFiles = map( lambda x: (os.path.dirname( os.path.join(INSTALLATION_PATH, *x.split(os.path.sep)[1:]) ), [x] ), listOfAllPaths ) 
-
-#dataFiles.extend(
-#            [('/usr/share/applications',['mieru.desktop']),
-#             ('/usr/share/icons/hicolor/80x80/apps', ['80x80/mieru.png']),
-#             ('/usr/bin', ['mieru'])]
-#                )
 
 ## add desktop file
 
@@ -188,19 +178,6 @@ setup(
       "depends": "python, python-pyside.qtcore, python-pyside.qtgui, python-simplejson, python-gtk2",
       "architecture": "any",
     },
-#		"sdist_diablo": {
-#			"debian_package": APP_NAME,
-#			"Maemo_Display_Name": PRETTY_APP_NAME,
-#			#"Maemo_Upgrade_Description": CHANGES,
-#			"Maemo_Bugtracker": BUGTRACKER_URL,
-#			"Maemo_Icon_26": "data/icons/26/%s.png" % APP_NAME,
-#			"section": "user/science",
-#			"copyright": "gpl",
-#			"changelog": CHANGES,
-#			"buildversion": str(BUILD),
-#			"depends": "python2.5, python2.5-qt4-core, python2.5-qt4-gui, python-xdg, python-simplejson",
-#			"architecture": "any",
-#		},
     "sdist_fremantle": {
       "debian_package": APP_NAME,
       "Maemo_Display_Name": PRETTY_APP_NAME,
