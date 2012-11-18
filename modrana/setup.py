@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # modRana setup.py
+import shutil
 
 import sys
 import time
@@ -106,6 +107,18 @@ def find_packages(path, base="", includeRoot=False):
       for name in find_packages(dir, module_name):
         yield name
 
+## remove all files and folders that don't need or should not be distributed,
+## either in all packages or on some targets
+## -> currently mainly the amd64 compiled monav-server binaries in packages for
+## mobile platforms
+pathsToRemove = ['modules/mod_route/monav_amd64']
+for rPath in pathsToRemove:
+  try:
+    shutil.rmtree(os.path.join('src', rPath))
+  except Exception, e:
+    print('removing %s from the package failed')
+    print(e)
+
 ## list all files belonging to the application
 listOfAllPaths = []
 for (dirpath, dirnames, filenames) in os.walk('src'):
@@ -122,7 +135,7 @@ for (dirpath, dirnames, filenames) in os.walk('src'):
 ## * using * ve "unroll" the list and supply it as a list of arguments to os.path.join
 ## * os.path.join should reconstruct the path back together including the new path root folder
 ## * os.path.dirname drops the filenames (or else we would get for example /opt/mieru/mieru.py/mieru.py
-dataFiles = map( lambda x: (os.path.dirname( os.path.join(INSTALLATION_PATH, *x.split(os.path.sep)[1:]) ), [x] ), listOfAllPaths ) 
+dataFiles = map( lambda x: (os.path.dirname( os.path.join(INSTALLATION_PATH, *x.split(os.path.sep)[1:]) ), [x] ), listOfAllPaths )
 
 ## add desktop file
 
