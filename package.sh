@@ -7,7 +7,7 @@
 name=modrana
 version='0'
 minor='37'
-build='15'
+build='16'
 
 separator="."
 obs_package_path="home:MartinK:${name}/${name}/"
@@ -158,6 +158,7 @@ rm -rf ${fremantle_obs_package_path}/*.spec
 ## before upload to OBS
 echo "type h for Harmattan upload to OBS"
 echo "f for Fremantle upload to OBS"
+echo "nemo for Nemo upload to OBS"
 echo "or y to upload both"
 echo "and n or something else to exit"
 read reply
@@ -191,7 +192,7 @@ fi
 
 ## NEMO ONLY ##
 
-if [ "$reply" == "f" ];
+if [ "$reply" == "nemo" ];
 then
   echo "* uploading to OBS"
   cd ${nemo_obs_package_path}
