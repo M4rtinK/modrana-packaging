@@ -12,6 +12,7 @@ build='14'
 separator="."
 obs_package_path="home:MartinK:${name}/${name}/"
 fremantle_obs_package_path="home:MartinK:${name}:${name}-fremantle/${name}/"
+nemo_obs_package_path="home:MartinK:${name}:${name}-nemo/${name}/"
 
 ## generate version string
 short_version_string=${version}${separator}${minor}${separator}${build}
@@ -100,13 +101,18 @@ cp ${name}/dist/*.* ${obs_package_path}
 rm -rf home:MartinK:${name}/${name}/*.spec
 
 
-## build the nemo specfile
+## build the nemo tarball & specfile
+
+## cleanup
 cd ${name}
 rm -rf dist/*
 rm -rf deb_dist/*
+rm -rf ${nemo_obs_package_path}/*.tar.gz
+rm -rf ${nemo_obs_package_path}/*.spec
 python setup.py sdist_nemo
 cd ..
-cp ${name}/dist/*.spec ${obs_package_path}
+cp ${name}/dist/*.tar.gz ${nemo_obs_package_path}
+cp ${name}/dist/*.spec ${nemo_obs_package_path}
 
 ## build the Fremantle package using the maemo_sdist command
 
