@@ -25,9 +25,12 @@ import os
 
 try:
   from sdist_maemo import sdist_maemo as _sdist_maemo
+  from sdist_maemo import sdist_nemo as _sdist_nemo
   sdist_maemo = _sdist_maemo
+  sdist_nemo = _sdist_nemo
 except ImportError:
   sdist_maemo = None
+  sdist_nemo = None
   print('sdist_maemo command not available')
 
 from distutils.core import setup
@@ -179,7 +182,7 @@ setup(
     'sdist_diablo': sdist_maemo,
     'sdist_fremantle': sdist_maemo,
     'sdist_harmattan': sdist_maemo,
-    'sdist_nemo': sdist_maemo,
+    'sdist_nemo': sdist_nemo,
   },
   options={
     "sdist_ubuntu": {
@@ -249,13 +252,6 @@ exit 0
 """ % (INSTALLATION_PATH,INSTALLATION_PATH),
     },
     "sdist_nemo": {
-      "debian_package": APP_NAME,
-      "Maemo_Display_Name": PRETTY_APP_NAME,
-      "Maemo_Upgrade_Description": CHANGES,
-      "Maemo_Bugtracker": BUGTRACKER_URL,
-      "Maemo_Icon_26": "icons/64x64/%s.png" % APP_NAME,
-      "MeeGo_Desktop_Entry_Filename": APP_NAME,
-      #"MeeGo_Desktop_Entry": "",
       "section": "user/navigation",
       "copyright": "gpl",
       "changelog": CHANGES,

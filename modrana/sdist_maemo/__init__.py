@@ -488,23 +488,11 @@ class sdist_nemo(Command):
                     ('architecture=', None,
                      "Architecture"),
                     ('depends=', None,
-                     "Other Debian package dependencies (comma separated)"),
+                     "Other package dependencies (comma separated)"),
                     ('build-depends=', None,
-                     "Other Debian package build-time dependencies (comma separated)"),
+                     "Other package build-time dependencies (comma separated)"),
                     ('changelog=', None,
                      "ChangeLog"),
-                    ('Maemo-Bugtracker=', None,
-                     "URI of the bug tracker"),
-                    ('Maemo-Display-Name=', None,
-                     "Display name"),
-                    ('Maemo-Upgrade-Description=', None,
-                     "Upgrade description"),
-                    ('Maemo-Icon-26=', None,
-                     "Maemo package icon"),
-                    ('Maemo-Flags=', None,
-                     "Maemo specifics flags"),
-                    ('MeeGo-Desktop-Entry-Filename=', None,
-                     "MeeGo specifics entry filename or filepath"),
                     ('postinst=', None,
                      "Post install script"),
                     ('postre=', None,
@@ -528,9 +516,9 @@ class sdist_nemo(Command):
                    ]
 
     def initialize_options (self):
+        self.name = None
         self.dist_dir = None
         self.install_purelib = None
-        self.debian_package = None
         self.build_dir = None
         self.section = None
         self.priority = None
@@ -541,12 +529,6 @@ class sdist_nemo(Command):
         self.suggests = None
         self.buildversion = None
         self.changelog = None
-        self.Maemo_Icon_26 = None
-        self.Maemo_Display_Name = None
-        self.Maemo_Bugtracker = None
-        self.Maemo_Upgrade_Description = None
-        self.Maemo_Flags = None
-        self.MeeGo_Desktop_Entry_Filename = None
         # TODO: remove Maemo/MeeGo specific stuff ?
         # -> check if something from it persisted to Nemo
         self.postinst = None
@@ -634,33 +616,12 @@ class sdist_nemo(Command):
         if self.buildversion is None:
             self.buildversion = "1"
 
-        if self.Maemo_Icon_26 is None:
-            self.Maemo_Icon_26 = ''
-
-        if self.Maemo_Display_Name is None:
-            self.Maemo_Display_Name = self.distribution.get_name()
-
-        if self.Maemo_Bugtracker is None:
-            self.Maemo_Bugtracker = ''
-
-        if self.Maemo_Upgrade_Description is None:
-            self.Maemo_Upgrade_Description = ''
-
-        if self.MeeGo_Desktop_Entry_Filename is None:
-            self.Maemo_Upgrade_Description = ''
-
-        if self.Maemo_Flags is None:
-            self.Maemo_Flags = 'visible'
-
         if self.tarball_filename is None:
-          self.tarball_filename = self.debian_package+'_'+self.version+'.tar.gz'
+          self.tarball_filename = self.name+'_'+self.version+'.tar.gz'
 
         if self.tarball_path is None:
           self.tarball_path = os.path.join(self.dist_dir,self.tarball_filename)
 
-        #clean long_description (add a space before each next lines)
-        self.Maemo_Upgrade_Description=self.Maemo_Upgrade_Description.replace("\r","").strip()
-        self.Maemo_Upgrade_Description = "\n ".join(self.Maemo_Upgrade_Description.split("\n"))
 
     def mkscript(self, name , dest):
         if name and name.strip() != "":
@@ -671,20 +632,13 @@ class sdist_nemo(Command):
 #            print dest
             open(dest,"w").write(content)
 
-    def getIconContent(self,icon):
-        try:
-          import base64
-          iconb64 = "\n ".join(base64.encodestring(open(icon).read()).split("\n")[0:-1])
-          return "\n %s" % ( iconb64 )
-        except:
-          return ''
 
     def run (self):
         """
         """
 
         #Create folders and copy sources files
-        DATA_DIR = os.path.join(self.build_dir,self.debian_package)
+        DATA_DIR = os.path.join(self.build_dir,self.name)
 
         mkpath(self.dist_dir)
         #mkpath(os.path.join(DATA_DIR,'usr','bin'))
@@ -724,7 +678,7 @@ class sdist_nemo(Command):
             tarinfo.uname = tarinfo.gname = "root"
             return tarinfo
         tar = tarfile.open(tarpath, 'w:gz')
-        tar.add(self.build_dir, self.debian_package+'-'+self.version)
+        tar.add(self.build_dir, self.name+'-'+self.version)
         tar.close()
 
         #Clean the build dir
@@ -739,29 +693,29 @@ class sdist_nemo(Command):
         except:
           pass
 
-        changescontent = Changes(
-                        "%s <%s>"%(self.distribution.get_maintainer(),self.distribution.get_maintainer_email()),
-                        "%s"%self.description,
-                        "%s"%self.changelog,
-                        (
-                                 "%s.tar.gz"%os.path.join(self.dist_dir,self.debian_package+'_'+self.version),
-                                 "%s.dsc"%os.path.join(self.dist_dir,self.debian_package+'_'+self.version),
-                          ),
-                          "%s"%self.section,
-                          "%s"%self.repository,
-                          Format='1.7',
-                          Date=time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.gmtime()),
-                          Source="%s"%self.debian_package,
-                          Architecture="%s"%self.architecture,
-                          Version="%s"%(self.version),
-                          Distribution="%s"%self.repository,
-                          Urgency="%s"%self.urgency,
-                          Maintainer="%s <%s>"%(self.distribution.get_maintainer(),self.distribution.get_maintainer_email())
-                          )
-
-        f = open(os.path.join(self.dist_dir,self.debian_package+'_'+self.version+'.changes'),"wb")
-        f.write(unicode(changescontent.getContent()).encode('utf-8'))
-        f.close()
+#        changescontent = Changes(
+#                        "%s <%s>"%(self.distribution.get_maintainer(),self.distribution.get_maintainer_email()),
+#                        "%s"%self.description,
+#                        "%s"%self.changelog,
+#                        (
+#                                 "%s.tar.gz"%os.path.join(self.dist_dir,self.debian_package+'_'+self.version),
+#                                 "%s.dsc"%os.path.join(self.dist_dir,self.debian_package+'_'+self.version),
+#                          ),
+#                          "%s"%self.section,
+#                          "%s"%self.repository,
+#                          Format='1.7',
+#                          Date=time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.gmtime()),
+#                          Source="%s"%self.debian_package,
+#                          Architecture="%s"%self.architecture,
+#                          Version="%s"%(self.version),
+#                          Distribution="%s"%self.repository,
+#                          Urgency="%s"%self.urgency,
+#                          Maintainer="%s <%s>"%(self.distribution.get_maintainer(),self.distribution.get_maintainer_email())
+#                          )
+#
+#        f = open(os.path.join(self.dist_dir,self.debian_package+'_'+self.version+'.changes'),"wb")
+#        f.write(unicode(changescontent.getContent()).encode('utf-8'))
+#        f.close()
         try:
             locale.setlocale(locale.LC_TIME,old_locale)
         except:

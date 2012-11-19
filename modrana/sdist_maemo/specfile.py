@@ -34,7 +34,7 @@ class SpecFile(object):
 
     def __init__(self, main_command, origin):
         self.main_command = main_command
-        self.package_name = main_command.debian_package
+        self.package_name = main_command.name
         self.origin_dir = origin
 
         files = []
