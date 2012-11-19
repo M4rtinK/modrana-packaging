@@ -7,7 +7,7 @@
 name=modrana
 version='0'
 minor='37'
-build='3'
+build='14'
 
 separator="."
 obs_package_path="home:MartinK:${name}/${name}/"
@@ -24,32 +24,13 @@ echo ${short_version_string} > ${name}/version
 ## "EOF"
 
 changelog=$( cat <<EOF
-* merged Wikiwides Handmade routing .1
-* reworked routing on-screen menu .1
-* it is now possible to route through waypoints in online routing .1
-* layer group support (in the layer selection menu) .1
- * this enables seamless addition of more layers
-* 3 new map layers from Stamen Design .1
- * Toner
- * Waterocolor
- * Terain - USA only
-* 2 new public transport layers .1
- * Opnvkarte
- * transparent public transport overlay
-* new toplevel tracklogs menu .1
- * enables easy clearing of all visible tracklogs
-* icon update for search presets .1
-* fix back icon appearance in route profile detail menu .1
-* the centering button is now 50% transparent .1
-* fix online elevation lookup .2
-* Handmade route length fix by Wikiwide - thanks ! :) .3
-* QML GUI now can set mode .3
+- try to disable noarch
 EOF
 )
 
 ## update changelog file
-rm -f  ${name}/${name}.changelog
-echo "${changelog}" >  ${name}/changelog
+#rm -f  ${name}/${name}.changelog
+echo "${changelog}" >  ${name}/current_changelog
 
 ## start from current directory
 start_path=`pwd`
@@ -116,9 +97,18 @@ rm -rf home:MartinK:${name}/${name}/*.deb
 rm -rf home:MartinK:${name}/${name}/*.changes
 rm -rf home:MartinK:${name}/${name}/*.dsc
 cp ${name}/dist/*.* ${obs_package_path}
+rm -rf home:MartinK:${name}/${name}/*.spec
 
 
-## build the Fremantle package using maemo_sdist command
+## build the nemo specfile
+cd ${name}
+rm -rf dist/*
+rm -rf deb_dist/*
+python setup.py sdist_nemo
+cd ..
+cp ${name}/dist/*.spec ${obs_package_path}
+
+## build the Fremantle package using the maemo_sdist command
 
 echo "* building Fremantle package"
 
@@ -133,7 +123,8 @@ python setup.py sdist_fremantle
 #cd ${start_path}
 cd ..
 
-## archive the package
+## archive the Fremantle package
+## so that it can be used for the Autobuilder
 cp ${name}/dist/*.* archive/
 
 ## create a plain tarball
@@ -155,6 +146,7 @@ rm -rf ${fremantle_obs_package_path}/*.deb
 rm -rf ${fremantle_obs_package_path}/*.changes
 rm -rf ${fremantle_obs_package_path}/*.dsc
 cp ${name}/dist/*.* ${fremantle_obs_package_path}
+rm -rf ${fremantle_obs_package_path}/*.spec
 
 ## wait for a key press so that the package can be checked
 ## before upload to OBS
