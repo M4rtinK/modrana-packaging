@@ -7,7 +7,7 @@
 name=modrana
 version='0'
 minor='37'
-build='14'
+build='15'
 
 separator="."
 obs_package_path="home:MartinK:${name}/${name}/"
@@ -25,7 +25,7 @@ echo ${short_version_string} > ${name}/version
 ## "EOF"
 
 changelog=$( cat <<EOF
-- try to disable noarch
+- separate Nemo OBS package & project
 EOF
 )
 
@@ -170,7 +170,7 @@ then
   cd ${obs_package_path}
   osc ar
   osc commit -m "${name} version ${short_version_string}"
-  echo "* OBS upload done"
+  echo "* Harmattan OBS upload done"
 else
   echo "* no Harmattan upload exiting"
 fi
@@ -184,12 +184,25 @@ then
   cd ${fremantle_obs_package_path}
   osc ar
   osc commit -m "${name} version ${short_version_string}"
-  echo "* OBS upload done"
+  echo "* Fremantle OBS upload done"
 else
   echo "* no Fremantle upload"
 fi
 
-## BOTH ##
+## NEMO ONLY ##
+
+if [ "$reply" == "f" ];
+then
+  echo "* uploading to OBS"
+  cd ${nemo_obs_package_path}
+  osc ar
+  osc commit -m "${name} version ${short_version_string}"
+  echo "* Nemo OBS upload done"
+else
+  echo "* no Nemo upload"
+fi
+
+## ALL ##
 
 if [ "$reply" == "y" ];
 then
@@ -202,6 +215,11 @@ then
   cd ${fremantle_obs_package_path}
   osc ar
   osc commit -m "${name} version ${short_version_string}"
+  echo "* Fremantle OBS upload done"
+  cd ${nemo_obs_package_path}
+  osc ar
+  osc commit -m "${name} version ${short_version_string}"
+  echo "* Nemo OBS upload done"
   echo "* combined OBS upload done"
 else
   echo "* exiting"
