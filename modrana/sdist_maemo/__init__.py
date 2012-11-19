@@ -267,7 +267,7 @@ class sdist_maemo(Command):
                 content = file(name).read()
             else:   # it's a script
                 content = name
-            print dest
+#            print dest
             open(dest,"w").write(content)
 
     def getIconContent(self,icon):
@@ -668,7 +668,7 @@ class sdist_nemo(Command):
                 content = file(name).read()
             else:   # it's a script
                 content = name
-            print dest
+#            print dest
             open(dest,"w").write(content)
 
     def getIconContent(self,icon):
