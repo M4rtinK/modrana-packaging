@@ -135,6 +135,7 @@ Requires: %(depends)s
 %%build
 
 %%install
+rm -rf %%{buildroot}
 %(specrules)s
 """ % self.options
         if self.options['postinst']:
