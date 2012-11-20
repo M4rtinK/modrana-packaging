@@ -7,7 +7,7 @@
 name=modrana
 version='0'
 minor='37'
-build='16'
+build='18'
 
 separator="."
 obs_package_path="home:MartinK:${name}/${name}/"
@@ -93,22 +93,23 @@ cd ..
 cp ${name}/dist/*.* archive/
 
 ## replace the OBS package by newer version
-rm -rf home:MartinK:${name}/${name}/*.tar.gz
-rm -rf home:MartinK:${name}/${name}/*.deb
-rm -rf home:MartinK:${name}/${name}/*.changes
-rm -rf home:MartinK:${name}/${name}/*.dsc
+rm -rf ${obs_package_path}/${name}/*.tar.gz
+rm -rf ${obs_package_path}/${name}/*.deb
+rm -rf ${obs_package_path}/${name}/*.changes
+rm -rf ${obs_package_path}/${name}/*.dsc
 cp ${name}/dist/*.* ${obs_package_path}
-rm -rf home:MartinK:${name}/${name}/*.spec
+rm -rf ${obs_package_path}/${name}/*.spec
 
 
 ## build the nemo tarball & specfile
 
 ## cleanup
-cd ${name}
-rm -rf dist/*
-rm -rf deb_dist/*
+rm -rf ${name}/dist/*
+rm -rf ${name}/deb_dist/*
 rm -rf ${nemo_obs_package_path}/*.tar.gz
 rm -rf ${nemo_obs_package_path}/*.spec
+## run the setup.py
+cd ${name}
 python setup.py sdist_nemo
 cd ..
 cp ${name}/dist/*.tar.gz ${nemo_obs_package_path}
