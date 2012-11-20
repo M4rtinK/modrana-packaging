@@ -130,7 +130,7 @@ Requires: %(depends)s
 %(description)s
 
 %%prep
-%%setup
+%%setup -q
 
 %%build
 
