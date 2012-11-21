@@ -252,7 +252,7 @@ exit 0
 """ % (INSTALLATION_PATH,INSTALLATION_PATH),
     },
     "sdist_nemo": {
-      "section": "Location/Location",
+      "section": "Applications/Productivity",
       "copyright": "gpl",
       "changelog": CHANGES,
       "buildversion": str(BUILD),
