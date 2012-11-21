@@ -7,7 +7,7 @@
 name=modrana
 version='0'
 minor='37'
-build='18'
+build='19'
 
 separator="."
 obs_package_path="home:MartinK:${name}/${name}/"
@@ -25,7 +25,9 @@ echo ${short_version_string} > ${name}/version
 ## "EOF"
 
 changelog=$( cat <<EOF
-- separate Nemo OBS package & project
+- more clean & robust modRana module imports (thanks to Martin Sivak for the suggestion!)
+- general code cleanup
+- specfile improvements based on rpmlint output
 EOF
 )
 
