@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# workaround for Nemo bug #580
+# TODO: remove once the bug is fixed
+export DISPLAY=:0.0
+
+cd /opt/modrana
+python modrana.py -u QML -d nemo
