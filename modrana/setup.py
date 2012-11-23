@@ -181,7 +181,7 @@ if TARGET == "sdist_fremantle":
   dataFiles.extend([ ("/usr/share/icons/hicolor/64x64/apps", ["fremantle/modrana-qml.png"]) ])
 
 ## on Nemo, add Nemo startup scripts to /usr/bin
-if TARGET == "sdist_fremantle":
+if TARGET == "sdist_nemo":
   dataFiles.extend( [ ("/usr/bin", ["nemo/modrana"]) ] )
   dataFiles.extend( [ ("/usr/bin", ["nemo/modrana-gtk"]) ] )
   dataFiles.extend( [ ("/usr/bin", ["nemo/modrana-qml"]) ] )
