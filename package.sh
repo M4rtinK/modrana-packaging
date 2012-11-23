@@ -214,6 +214,7 @@ fi
 if [ "$reply" == "y" ];
 then
   echo "* uploading to OBS"
+  cd ${start_path}
   cd ${obs_package_path}
   osc ar
   osc commit -m "${name} version ${short_version_string}"
@@ -223,6 +224,7 @@ then
   osc ar
   osc commit -m "${name} version ${short_version_string}"
   echo "* Fremantle OBS upload done"
+  cd ${start_path}
   cd ${nemo_obs_package_path}
   osc ar
   osc commit -m "${name} version ${short_version_string}"
