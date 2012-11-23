@@ -7,7 +7,7 @@
 name=modrana
 version='0'
 minor='37'
-build='22'
+build='23'
 
 separator="."
 obs_package_path="home:MartinK:${name}/${name}/"
@@ -25,12 +25,7 @@ echo ${short_version_string} > ${name}/version
 ## "EOF"
 
 changelog=$( cat <<EOF
-- negative map tile filter - thanks Rotoflex for the idea ! :)
-  - can be enabled in options->Map->Filters
-  - states: enabled/disabled/with night mode
-  - works fine with map overlay
-  - known issue: doesn't work well with transparent layers at the moment
-- Nemo device module
+- include Nemo startup scripts
 EOF
 )
 
@@ -90,12 +85,12 @@ rm -rf deb_dist/*
 
 python setup.py sdist_harmattan
 
-## return back to main folder
-#cd ${start_path}
-cd ..
+## return back to the main folder
+cd ${start_path}
 
-## archive the package
-cp ${name}/dist/*.* archive/
+## archive the package Harmattan
+#cp ${name}/dist/*.* archive/
+## TODO: separate harmattan archive
 
 ## replace the OBS package by newer version
 rm -rf ${obs_package_path}/${name}/*.tar.gz
@@ -108,7 +103,7 @@ rm -rf ${obs_package_path}/${name}/*.spec
 
 ## build the nemo tarball & specfile
 
-## cleanup
+## Nemo cleanup
 rm -rf ${name}/dist/*
 rm -rf ${name}/deb_dist/*
 rm -rf ${nemo_obs_package_path}/*.tar.gz
@@ -132,8 +127,7 @@ rm -rf dist/*
 python setup.py sdist_fremantle
 
 ## return back to main folder
-#cd ${start_path}
-cd ..
+cd ${start_path}
 
 ## archive the Fremantle package
 ## so that it can be used for the Autobuilder
