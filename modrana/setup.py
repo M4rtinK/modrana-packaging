@@ -8,30 +8,43 @@ import sys
 import time
 
 reload(sys).setdefaultencoding("UTF-8")
+SUPPORTED_TARGETS = ["sdist_harmattan", "sdist_fremantle", "sdist_nemo", "sdist_fedora"]
+
+ERROR_WRONG_NUMBER_OF_ARGUMENTS = 1
+ERROR_UNSUPPORTED_TARGET = 2
+ERROR_TARGET_IMPORT_ERROR = 3
 
 # check for startup arguments
 if len(sys.argv) < 2:
   print("Error: build target not specified")
-  print("use sdist_ubuntu, sdist_harmattan or sdist_fremantle")
-  sys.exit(1)
+  print("use one of the supported targets:")
+  for target in SUPPORTED_TARGETS:
+    print(target)
+  sys.exit(ERROR_WRONG_NUMBER_OF_ARGUMENTS)
 
 TARGET = sys.argv[1]
-if TARGET not in ["sdist_harmattan", "sdist_fremantle", "sdist_nemo"]:
-  print("Error, wrong target specified")
-  print("use sdist_harmattan, sdist_fremantle or sdist_nemo")
-  sys.exit(2)
+if TARGET not in SUPPORTED_TARGETS:
+  print("Error, wrong target specified, use one of:")
+  for target in SUPPORTED_TARGETS:
+    print(target)
+  sys.exit(ERROR_UNSUPPORTED_TARGET)
 
 import os
+
+
 
 try:
   from sdist_maemo import sdist_maemo as _sdist_maemo
   from sdist_maemo import sdist_nemo as _sdist_nemo
+  from sdist_maemo import sdist_fedora as _sdist_fedora
   sdist_maemo = _sdist_maemo
   sdist_nemo = _sdist_nemo
 except ImportError:
   sdist_maemo = None
   sdist_nemo = None
-  print('sdist_maemo command not available')
+  sdist_fedora = None
+  print('%s command not available' % TARGET)
+  sys.exit(ERROR_TARGET_IMPORT_ERROR)
 
 from distutils.core import setup
 
@@ -80,6 +93,8 @@ if TARGET == "sdist_harmattan":
   INPUT_DESKTOP_FILE="harmattan/%s.desktop" % APP_NAME
 elif TARGET == "sdist_fremantle":
   INPUT_DESKTOP_FILE="fremantle/%s.desktop" % APP_NAME
+elif TARGET == "sdist_nemo":
+  INPUT_DESKTOP_FILE="nemo/%s.desktop" % APP_NAME
 else:
   INPUT_DESKTOP_FILE="%s.desktop" % APP_NAME
 
@@ -115,6 +130,9 @@ def find_packages(path, base="", includeRoot=False):
 ## -> currently mainly the amd64 compiled monav-server binaries in packages for
 ## mobile platforms
 pathsToRemove = ['modules/mod_route/monav_amd64']
+if TARGET == "sdist_fedora":
+  # Fedora packaging policy forbids bundling binaries
+  pathsToRemove.append('modules/mod_route/monav_armv7')
 for rPath in pathsToRemove:
   try:
     shutil.rmtree(os.path.join('src', rPath))
@@ -161,6 +179,12 @@ if TARGET == "sdist_fremantle":
   # add modRana-qml desktop file and icon
   dataFiles.extend([ (FREMANTLE_DESKTOP_FILE_PATH, ["fremantle/modrana-qml.desktop"]) ])
   dataFiles.extend([ ("/usr/share/icons/hicolor/64x64/apps", ["fremantle/modrana-qml.png"]) ])
+
+## on Nemo, add Nemo startup scripts to /usr/bin
+if TARGET == "sdist_fremantle":
+  dataFiles.extend( [ ("/usr/bin", ["nemo/modrana"]) ] )
+  dataFiles.extend( [ ("/usr/bin", ["nemo/modrana-gtk"]) ] )
+  dataFiles.extend( [ ("/usr/bin", ["nemo/modrana-qml"]) ] )
 
 setup(
   name=APP_NAME,
@@ -256,7 +280,7 @@ exit 0
       "copyright": "gpl",
       "changelog": CHANGES,
       "buildversion": str(BUILD),
-      "depends": "python, python-pyside",
+      "depends": "python, python-pyside, python-qtmobility",
       "build_depends" : "python-devel",
       "architecture": "any",
       "postinst" : """#!/bin/sh
