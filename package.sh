@@ -7,7 +7,7 @@
 name=modrana
 version='0'
 minor='37'
-build='19'
+build='22'
 
 separator="."
 obs_package_path="home:MartinK:${name}/${name}/"
@@ -25,9 +25,12 @@ echo ${short_version_string} > ${name}/version
 ## "EOF"
 
 changelog=$( cat <<EOF
-- more clean & robust modRana module imports (thanks to Martin Sivak for the suggestion!)
-- general code cleanup
-- specfile improvements based on rpmlint output
+- negative map tile filter - thanks Rotoflex for the idea ! :)
+  - can be enabled in options->Map->Filters
+  - states: enabled/disabled/with night mode
+  - works fine with map overlay
+  - known issue: doesn't work well with transparent layers at the moment
+- Nemo device module
 EOF
 )
 
