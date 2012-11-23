@@ -229,7 +229,7 @@ setup(
       "changelog": CURRENT_CHANGES,
       "buildversion": str(BUILD),
       #"depends": "python2.5, python2.5-qt4-core, python2.5-qt4-gui, python2.5-qt4-maemo5, python-xdg, python-simplejson",
-      "depends": "python-qtmobility12, python-pyside.qtgui, python-pyside.qtdeclarative, qt-components-10, espeak, python-dbus, python-protobuf, python-location, python-osso, python-conic, python-hildon, python",
+      "depends": "python-qtmobility12, python-pyside.qtgui, python-pyside.qtdeclarative, qt-components-10, espeak, python-dbus, python-protobuf, python-imaging, python-location, python-osso, python-conic, python-hildon, python",
       "architecture": "any",
       "postinst" : """#!/bin/sh
 #DEBHELPER#
