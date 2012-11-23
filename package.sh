@@ -7,7 +7,7 @@
 name=modrana
 version='0'
 minor='37'
-build='24'
+build='25'
 
 separator="."
 obs_package_path="home:MartinK:${name}/${name}/"
@@ -25,7 +25,7 @@ echo ${short_version_string} > ${name}/version
 ## "EOF"
 
 changelog=$( cat <<EOF
-- fix startup script permissions for Fremantle, Nemo and Fedora
+- add missing python-imaging dependency for Fremantle
 EOF
 )
 
@@ -167,7 +167,7 @@ read reply
 
 if [ "$reply" == "h" ];
 then
-  echo "* uploading to OBS"
+  echo "* Harmattan: uploading to OBS"
   cd ${obs_package_path}
   osc ar
   osc commit -m "${name} version ${short_version_string}"
@@ -181,7 +181,7 @@ fi
 
 if [ "$reply" == "f" ];
 then
-  echo "* uploading to OBS"
+  echo "* Fremantle: uploading to OBS"
   cd ${fremantle_obs_package_path}
   osc ar
   osc commit -m "${name} version ${short_version_string}"
@@ -194,7 +194,7 @@ fi
 
 if [ "$reply" == "nemo" ];
 then
-  echo "* uploading to OBS"
+  echo "* Nemo: uploading to OBS"
   cd ${nemo_obs_package_path}
   osc ar
   osc commit -m "${name} version ${short_version_string}"
@@ -207,7 +207,7 @@ fi
 
 if [ "$reply" == "y" ];
 then
-  echo "* uploading to OBS"
+  echo "* ALL: uploading to OBS"
   cd ${start_path}
   cd ${obs_package_path}
   osc ar
