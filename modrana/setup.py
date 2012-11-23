@@ -36,7 +36,7 @@ import os
 try:
   from sdist_maemo import sdist_maemo as _sdist_maemo
   from sdist_maemo import sdist_nemo as _sdist_nemo
-  from sdist_maemo import sdist_fedora as _sdist_fedora
+#  from sdist_maemo import sdist_fedora as _sdist_fedora
   sdist_maemo = _sdist_maemo
   sdist_nemo = _sdist_nemo
 except ImportError:
