@@ -7,7 +7,7 @@
 name=modrana
 version='0'
 minor='37'
-build='25'
+build='26'
 
 separator="."
 obs_package_path="home:MartinK:${name}/${name}/"
@@ -25,7 +25,7 @@ echo ${short_version_string} > ${name}/version
 ## "EOF"
 
 changelog=$( cat <<EOF
-- add missing python-imaging dependency for Fremantle
+- dynamically generate the list as valid device module ids
 EOF
 )
 
