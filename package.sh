@@ -162,7 +162,7 @@ rm -rf ${fremantle_obs_package_path}/*.spec
 echo "type h for Harmattan upload to OBS"
 echo "f for Fremantle upload to OBS"
 echo "nemo for Nemo upload to OBS"
-echo "or y to upload both"
+echo "or a to upload all"
 echo "and n or something else to exit"
 read reply
 
@@ -208,19 +208,22 @@ fi
 
 ## ALL ##
 
-if [ "$reply" == "y" ];
+if [ "$reply" == "a" ];
 then
   echo "* ALL: uploading to OBS"
+  echo "OBS Harmattan upload"
   cd ${start_path}
   cd ${obs_package_path}
   osc ar
   osc commit -m "${name} version ${short_version_string}"
   echo "* OBS Harmattan upload done"
+  echo "OBS Fremantle upload"
   cd ${start_path}
   cd ${fremantle_obs_package_path}
   osc ar
   osc commit -m "${name} version ${short_version_string}"
   echo "* Fremantle OBS upload done"
+  echo "OBS Nemo upload"
   cd ${start_path}
   cd ${nemo_obs_package_path}
   osc ar
