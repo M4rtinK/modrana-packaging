@@ -7,7 +7,7 @@
 name=modrana
 version='0'
 minor='37'
-build='26'
+build='28'
 
 separator="."
 obs_package_path="home:MartinK:${name}/${name}/"
@@ -25,7 +25,9 @@ echo ${short_version_string} > ${name}/version
 ## "EOF"
 
 changelog=$( cat <<EOF
-- dynamically generate the list as valid device module ids
+- add meridian/parallel grid display support
+  - can be enabled in options->Map->Grid
+  - configurable grid color
 EOF
 )
 
