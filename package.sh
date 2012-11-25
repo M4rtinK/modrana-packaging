@@ -6,8 +6,8 @@
 
 name=modrana
 version='0'
-minor='37'
-build='28'
+minor='38'
+build='1'
 
 separator="."
 obs_package_path="home:MartinK:${name}/${name}/"
@@ -25,9 +25,10 @@ echo ${short_version_string} > ${name}/version
 ## "EOF"
 
 changelog=$( cat <<EOF
-- add meridian/parallel grid display support
-  - can be enabled in options->Map->Grid
-  - configurable grid color
+- map grid now shows meridian & parallel labels
+- scalebar and its label are now properly themed
+- the centering button is now better visible in the night theme
+- fixed fast map dragging making clicking on-screen button difficult
 EOF
 )
 
