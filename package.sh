@@ -7,7 +7,7 @@
 name=modrana
 version='0'
 minor='38'
-build='1'
+build='2'
 
 separator="."
 obs_package_path="home:MartinK:${name}/${name}/"
@@ -25,10 +25,10 @@ echo ${short_version_string} > ${name}/version
 ## "EOF"
 
 changelog=$( cat <<EOF
-- map grid now shows meridian & parallel labels
-- scalebar and its label are now properly themed
-- the centering button is now better visible in the night theme
-- fixed fast map dragging making clicking on-screen button difficult
+- make QtMobility dependency optional on Nemo
+ - the python-qtmobility package is not yet in Nemo core, so modRana should work even without it
+ - without QtMobility, screen blanking control won't work
+ - at the moment, location doesn't work on Nemo anyway
 EOF
 )
 
