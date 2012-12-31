@@ -7,7 +7,7 @@
 name=modrana
 version='0'
 minor='39'
-build='2'
+build='4'
 
 separator="."
 obs_package_path="home:MartinK:${name}/${name}/" ## Harmattan package OBS path
@@ -25,9 +25,8 @@ echo ${short_version_string} > ${name}/version
 ## "EOF"
 
 changelog=$( cat <<EOF
-- fix local search & static map URL regression on Fremantle
-- fix some warnings spamming stdout for --return-current-coordinates on Harmattan
-- add icon attribution file
+- fix missing import in N9 device module causing crash at startup
+- fix QtMobility debugging being always enabled
 EOF
 )
 
