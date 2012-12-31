@@ -7,10 +7,10 @@
 name=modrana
 version='0'
 minor='39'
-build='1'
+build='2'
 
 separator="."
-obs_package_path="home:MartinK:${name}/${name}/"
+obs_package_path="home:MartinK:${name}/${name}/" ## Harmattan package OBS path
 fremantle_obs_package_path="home:MartinK:${name}:${name}-fremantle/${name}/"
 nemo_obs_package_path="home:MartinK:${name}:${name}-nemo/${name}/"
 
@@ -25,17 +25,9 @@ echo ${short_version_string} > ${name}/version
 ## "EOF"
 
 changelog=$( cat <<EOF
-- reworked QML GUI that should be less dependent on Harmattan Qt Components
- - all components are now locally available
- - only a toplevel PageStackWindow is used from Harmattan Components
-- QML GUI improvements
- - new Location info page (shows details location information)
- - new Speed info page (shows current speed + average & max speed)
- - new map screen icons
- - uses the inverted theme by default
-- fix --get-current-coordinates not working with QtMobility on Harmattan
-- fix address2address routing not working
-- fix the upper left minimize button interfering with the back-button in QML GUI @ Fremantle
+- fix local search & static map URL regression on Fremantle
+- fix some warnings spamming stdout for --return-current-coordinates on Harmattan
+- add icon attribution file
 EOF
 )
 
@@ -45,6 +37,9 @@ echo "${changelog}" >  ${name}/current_changelog
 
 ## start from current directory
 start_path=`pwd`
+
+echo "ASDASDASDASDASDASD"
+echo $start_path
 
 echo "** packaging "${name}" version: "${short_version_string}
 
@@ -103,12 +98,12 @@ cd ${start_path}
 ## TODO: separate harmattan archive
 
 ## replace the OBS package by newer version
-rm -rf ${obs_package_path}/${name}/*.tar.gz
-rm -rf ${obs_package_path}/${name}/*.deb
-rm -rf ${obs_package_path}/${name}/*.changes
-rm -rf ${obs_package_path}/${name}/*.dsc
+rm -f ${obs_package_path}*.tar.gz
+rm -f ${obs_package_path}*.deb
+rm -f ${obs_package_path}*.changes
+rm -f ${obs_package_path}*.dsc
 cp ${name}/dist/*.* ${obs_package_path}
-rm -rf ${obs_package_path}/${name}/*.spec
+rm -f ${obs_package_path}*.spec
 
 
 ## build the nemo tarball & specfile
@@ -157,12 +152,12 @@ rm -rf ${name}/tmp_tarballing/
 rm -rf ${name}/src/
 
 ## replace the OBS package by newer version
-rm -rf ${fremantle_obs_package_path}/*.tar.gz
-rm -rf ${fremantle_obs_package_path}/*.deb
-rm -rf ${fremantle_obs_package_path}/*.changes
-rm -rf ${fremantle_obs_package_path}/*.dsc
+rm -f ${fremantle_obs_package_path}/*.tar.gz
+rm -f ${fremantle_obs_package_path}/*.deb
+rm -f ${fremantle_obs_package_path}/*.changes
+rm -f ${fremantle_obs_package_path}/*.dsc
 cp ${name}/dist/*.* ${fremantle_obs_package_path}
-rm -rf ${fremantle_obs_package_path}/*.spec
+rm -f ${fremantle_obs_package_path}/*.spec
 
 ## wait for a key press so that the package can be checked
 ## before upload to OBS
