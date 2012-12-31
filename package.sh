@@ -6,8 +6,8 @@
 
 name=modrana
 version='0'
-minor='38'
-build='2'
+minor='39'
+build='1'
 
 separator="."
 obs_package_path="home:MartinK:${name}/${name}/"
@@ -25,10 +25,17 @@ echo ${short_version_string} > ${name}/version
 ## "EOF"
 
 changelog=$( cat <<EOF
-- make QtMobility dependency optional on Nemo
- - the python-qtmobility package is not yet in Nemo core, so modRana should work even without it
- - without QtMobility, screen blanking control won't work
- - at the moment, location doesn't work on Nemo anyway
+- reworked QML GUI that should be less dependent on Harmattan Qt Components
+ - all components are now locally available
+ - only a toplevel PageStackWindow is used from Harmattan Components
+- QML GUI improvements
+ - new Location info page (shows details location information)
+ - new Speed info page (shows current speed + average & max speed)
+ - new map screen icons
+ - uses the inverted theme by default
+- fix --get-current-coordinates not working with QtMobility on Harmattan
+- fix address2address routing not working
+- fix the upper left minimize button interfering with the back-button in QML GUI @ Fremantle
 EOF
 )
 

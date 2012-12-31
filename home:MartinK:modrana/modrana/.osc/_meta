@@ -1,5 +1,16 @@
 <package project="home:MartinK:modrana" name="modrana">
-  <title>modRana package for Harmattan</title>
-  <description>modRana package for Harmattan</description>
+  <title>A flexible GPS navigation system for mobile Linux devices. (package for Harmattan)</title>
+  <description>modRana is a flexible navigation system for mobile Linux devices.&#13;
+* supports various map layers&#13;
+* POI manager&#13;
+* turn-by-turn navigation with voice directions&#13;
+* online amenity, Wikipedia and address search&#13;
+* GPX tracklog support - creation and visualization&#13;
+* quick, elegant and touch friendly interface&#13;
+* pinch zoom support (where available)&#13;
+* global landscape and portrait support + orientation locking&#13;
+* efficient sqlite-based tile storage&#13;
+* easily configurable&#13;
+* powerful command-line interface</description>
 </package>
 

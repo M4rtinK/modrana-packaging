@@ -1,1 +1,11 @@
-- try to disable noarch
+- reworked QML GUI that should be less dependent on Harmattan Qt Components
+ - all components are now locally available
+ - only a toplevel PageStackWindow is used from Harmattan Components
+- QML GUI improvements
+ - new Location info page (shows details location information)
+ - new Speed info page (shows current speed + average & max speed)
+ - new map screen icons
+ - uses the inverted theme by default
+- fix --get-current-coordinates not working with QtMobility on Harmattan
+- fix address2address routing not working
+- fix the upper left minimize button interfering with the back-button in QML GUI @ Fremantle

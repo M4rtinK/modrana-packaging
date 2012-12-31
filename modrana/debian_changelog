@@ -1,41 +1,99 @@
-modrana (0.37.14) stable; urgency=low
+modrana (0.39.1) stable; urgency=low
 
-  * Fri Nov 16 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.14
-  *  - try to disable noarch
+  * Mon Dec 31 2012 Martin Kolman <martin.kolman@gmail.com> - 0.39.1
+  *  - reworked QML GUI that should be less dependent on Harmattan Qt Components
+  *   - all components are now locally available
+  *   - only a toplevel PageStackWindow is used from Harmattan Components
+  *  - QML GUI improvements
+  *   - new Location info page (shows details location information)
+  *   - new Speed info page (shows current speed + average & max speed)
+  *   - new map screen icons
+  *   - uses the inverted theme by default
+  *  - fix --get-current-coordinates not working with QtMobility on Harmattan
+  *  - fix address2address routing not working
+  *  - fix the upper left minimize button interfering with the back-button in QML GUI @ Fremantle
 
- -- Martin Kolman <martin.kolman@gmail.com>  Sat, 17 Nov 2012 00:07:15 +0000
+ -- Martin Kolman <martin.kolman@gmail.com>  Mon, 31 Dec 2012 01:41:37 +0000
 
-modrana (0.37.13) stable; urgency=low
+modrana (0.38.2) stable; urgency=low
 
-  * Fri Nov 16 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.13
-  *  - handle unpackaged pyc & pyo files in RPM build
+  * Tue Nov 27 2012 Martin Kolman <martin.kolman@gmail.com> - 0.38.2
+  *  - make QtMobility dependency optional on Nemo
+  *   - the python-qtmobility package is not yet in Nemo core, so modRana should work even without it
+  *   - without QtMobility, screen blanking control won't work
+  *   - at the moment, location doesn't work on Nemo anyway
 
- -- Martin Kolman <martin.kolman@gmail.com>  Fri, 16 Nov 2012 23:54:04 +0000
+ -- Martin Kolman <martin.kolman@gmail.com>  Tue, 27 Nov 2012 22:01:41 +0000
 
-modrana (0.37.12) stable; urgency=low
+modrana (0.38.1) stable; urgency=low
 
-  * Fri Nov 16 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.12
-  *  - try a fix for monav-server binaries breaking OBS build
+  * Sun Nov 25 2012 Martin Kolman <martin.kolman@gmail.com> - 0.38.1
+  *  - map grid now shows meridian & parallel labels
+  *  - scalebar and its label are now properly themed
+  *  - the centering button is now better visible in the night theme
+  *  - fixed fast map dragging making clicking on-screen button difficult
 
- -- Martin Kolman <martin.kolman@gmail.com>  Fri, 16 Nov 2012 23:37:42 +0000
+ -- Martin Kolman <martin.kolman@gmail.com>  Sun, 25 Nov 2012 16:17:28 +0000
 
-modrana (0.37.11) stable; urgency=low
+modrana (0.37.28) stable; urgency=low
 
-  * Fri Nov 16 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.11
-  *  - try a fix for monav-server binaries breaking OBS build
+  * Sun Nov 25 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.28
+  *  - add meridian/parallel grid display support
+  *    - can be enabled in options->Map->Grid
+  *    - configurable grid color
 
- -- Martin Kolman <martin.kolman@gmail.com>  Fri, 16 Nov 2012 23:20:08 +0000
+ -- Martin Kolman <martin.kolman@gmail.com>  Sun, 25 Nov 2012 02:24:20 +0000
 
-modrana (0.37.9) stable; urgency=low
+modrana (0.37.27) stable; urgency=low
 
-  * Fri Nov 16 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.9
-  *  - fix paths in Nemo specfile
+  * Sat Nov 24 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.27
+  *  - remove an unintended PIL import
 
- -- Martin Kolman <martin.kolman@gmail.com>  Fri, 16 Nov 2012 02:15:04 +0000
+ -- Martin Kolman <martin.kolman@gmail.com>  Sat, 24 Nov 2012 12:18:42 +0000
 
-modrana (0.37.9) stable; urgency=low
+modrana (0.37.26) stable; urgency=low
 
-  * Fri Nov 16 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.9
-  *  - fix paths in Nemo specfile
+  * Sat Nov 24 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.26
+  *  - dynamically generate the list as valid device module ids
 
- -- Martin Kolman <martin.kolman@gmail.com>  Fri, 16 Nov 2012 02:14:02 +0000
+ -- Martin Kolman <martin.kolman@gmail.com>  Sat, 24 Nov 2012 01:57:20 +0000
+
+modrana (0.37.25) stable; urgency=low
+
+  * Fri Nov 23 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.25
+  *  - add missing python-imaging dependency for Fremantle
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Fri, 23 Nov 2012 21:33:47 +0000
+
+modrana (0.37.24) stable; urgency=low
+
+  * Fri Nov 23 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.24
+  *  - fix startup script permissions for Fremantle, Nemo and Fedora
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Fri, 23 Nov 2012 13:39:47 +0000
+
+modrana (0.37.23) stable; urgency=low
+
+  * Fri Nov 23 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.23
+  *  - include Nemo startup scripts
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Fri, 23 Nov 2012 12:53:54 +0000
+
+modrana (0.37.22) stable; urgency=low
+
+  * Fri Nov 23 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.22
+  *  - negative map tile filter - thanks Rotoflex for the idea ! :)
+  *    - can be enabled in options->Map->Filters
+  *    - states: enabled/disabled/with night mode
+  *    - works fine with map overlay
+  *    - known issue: doesn't work well with transparent layers at the moment
+  *  - Nemo device module
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Fri, 23 Nov 2012 01:11:13 +0000
+
+modrana (0.37.20) stable; urgency=low
+
+  * Wed Nov 21 2012 Martin Kolman <martin.kolman@gmail.com> - 0.37.20
+  *  - fixes based on COBS RPMLINT output
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Wed, 21 Nov 2012 01:19:55 +0000
