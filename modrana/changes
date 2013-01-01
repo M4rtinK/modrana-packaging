@@ -1,3 +1,16 @@
+* Mon Dec 31 2012 Martin Kolman <martin.kolman@gmail.com> - 0.39.4
+- fix missing import in N9 device module causing crash at startup
+- fix QtMobility debugging being always enabled
+* Mon Dec 31 2012 Martin Kolman <martin.kolman@gmail.com> - 0.39.3
+- move fix status to the header on the Location info page
+- use black text on blue background for the page headers
+- new info icon
+- QML GUI: only  import QtMobility once Application is instantiated
+ - this fixes some DBUS warnings that might conflict with CLI output
+* Mon Dec 31 2012 Martin Kolman <martin.kolman@gmail.com> - 0.39.2
+- fix local search & static map URL regression on Fremantle
+- fix some warnings spamming stdout for --return-current-coordinates on Harmattan
+- add icon attribution file
 * Mon Dec 31 2012 Martin Kolman <martin.kolman@gmail.com> - 0.39.1
 - reworked QML GUI that should be less dependent on Harmattan Qt Components
  - all components are now locally available
