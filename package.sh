@@ -7,7 +7,7 @@
 name=modrana
 version='0'
 minor='39'
-build='4'
+build='8'
 
 separator="."
 obs_package_path="home:MartinK:${name}/${name}/" ## Harmattan package OBS path
@@ -25,8 +25,7 @@ echo ${short_version_string} > ${name}/version
 ## "EOF"
 
 changelog=$( cat <<EOF
-- fix missing import in N9 device module causing crash at startup
-- fix QtMobility debugging being always enabled
+- remember zoomlevel in QML GUI
 EOF
 )
 
@@ -37,7 +36,6 @@ echo "${changelog}" >  ${name}/current_changelog
 ## start from current directory
 start_path=`pwd`
 
-echo "ASDASDASDASDASDASD"
 echo $start_path
 
 echo "** packaging "${name}" version: "${short_version_string}
