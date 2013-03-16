@@ -1,3 +1,18 @@
+* Mon Mar 11 2013 Martin Kolman <martin.kolman@gmail.com> - 0.39.8
+- remember zoomlevel in QML GUI
+* Tue Mar 05 2013 Martin Kolman <martin.kolman@gmail.com> - 0.39.7
+- map layer update
+ - Virtual Earth Satellite - Thanks Wikiwide ! :)
+* Fri Feb 22 2013 Martin Kolman <martin.kolman@gmail.com> - 0.39.6
+- map layer updates
+ - updated URL to Montina bike map (the map now also ocvers most of Europe)
+ - added map1.eu layer
+ - added International submarine cable map layer
+- make sure the log file is automatically flushed if stdout is redirected
+* Mon Jan 07 2013 Martin Kolman <martin.kolman@gmail.com> - 0.39.5
+- Neo FreeRunner detection
+- improved Neo FreeRunnerStartup script
+- add signals for location start & stop
 * Mon Dec 31 2012 Martin Kolman <martin.kolman@gmail.com> - 0.39.4
 - fix missing import in N9 device module causing crash at startup
 - fix QtMobility debugging being always enabled
