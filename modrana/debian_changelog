@@ -1,3 +1,92 @@
+modrana (0.39.9) stable; urgency=low
+
+  * Sun Mar 17 2013 Martin Kolman <martin.kolman@gmail.com> - 0.39.9
+  *  - massive map layer update ! :)
+  *   - new OpenStreetMap layers
+  *    - Mapnik b/w
+  *    - Landscape
+  *    - no labels
+  *    - labels (en)
+  *    - Hike and Bike
+  *    - OpenTopoMap
+  *    - Land Shading
+  *   - CloudMade Layers
+  *    - The Original
+  *    - Fine Line
+  *    - Red Alert
+  *    - Midnight Commander
+  *    - Fresh
+  *    - No-Names (shows unnamed roads and streats in OSM)
+  *    - Pale Dawn
+  *    - Tourist
+  *    - Blackout
+  *    - Thin
+  *    - Cycle Walk
+  *   - CloudMade 2x
+  *    - same layers, double-sized text and roads
+  *    - good for high-DPI screens
+  *   - Freemap.sk
+  *    - autoatlas
+  *    - touristic
+  *    - cyklomap
+  *    - skimap
+  *    - public transit
+  *   - new Google layers
+  *    - traffic
+  *    - traffic overlay
+  *    - traffic overlay labeled
+  *    - public transit
+  *    - weather Clesius
+  *    - weather Fahrenheit
+  *    - terrain
+  *    - terrain only (no labels)
+  *   - Czech layers
+  *    - amapy Tourist layer
+  *   - OpenSignal (mobile networg coverage)
+  *    - all overlay
+  *   - Yandex
+  *    - maps
+  *    - satellite
+  *    - overlay
+  *  - added new coordinate tile coordinate substitution method
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Sun, 17 Mar 2013 12:13:50 +0000
+
+modrana (0.39.8) stable; urgency=low
+
+  * Mon Mar 11 2013 Martin Kolman <martin.kolman@gmail.com> - 0.39.8
+  *  - remember zoomlevel in QML GUI
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Mon, 11 Mar 2013 22:19:58 +0000
+
+modrana (0.39.7) stable; urgency=low
+
+  * Tue Mar 05 2013 Martin Kolman <martin.kolman@gmail.com> - 0.39.7
+  *  - map layer update
+  *   - Virtual Earth Satellite - Thanks Wikiwide ! :)
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Wed, 06 Mar 2013 00:13:57 +0000
+
+modrana (0.39.6) stable; urgency=low
+
+  * Fri Feb 22 2013 Martin Kolman <martin.kolman@gmail.com> - 0.39.6
+  *  - map layer updates
+  *   - updated URL to Montina bike map (the map now also ocvers most of Europe)
+  *   - added map1.eu layer
+  *   - added International submarine cable map layer
+  *  - make sure the log file is automatically flushed if stdout is redirected
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Fri, 22 Feb 2013 14:18:46 +0000
+
+modrana (0.39.5) stable; urgency=low
+
+  * Mon Jan 07 2013 Martin Kolman <martin.kolman@gmail.com> - 0.39.5
+  *  - Neo FreeRunner detection
+  *  - improved Neo FreeRunnerStartup script
+  *  - add signals for location start & stop
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Mon, 07 Jan 2013 15:35:15 +0000
+
 modrana (0.39.4) stable; urgency=low
 
   * Mon Dec 31 2012 Martin Kolman <martin.kolman@gmail.com> - 0.39.4
