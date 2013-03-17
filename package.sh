@@ -1,95 +1,36 @@
 #!/bin/bash
-
 ##
-## ** modRana packaging script **
+## ** Bento packaging script **
 ##
 
-name=modrana
-version='0'
-minor='39'
-build='9'
+## source the configuration variables from
+## config.sh
+
+source config.sh
 
 separator="."
-obs_package_path="home:MartinK:${name}/${name}/" ## Harmattan package OBS path
-fremantle_obs_package_path="home:MartinK:${name}:${name}-fremantle/${name}/"
-nemo_obs_package_path="home:MartinK:${name}:${name}-nemo/${name}/"
+obs_package_path="home:MartinK:${APP_NAME}/${APP_NAME}/" ## Harmattan package OBS path
+fremantle_obs_package_path="home:MartinK:${APP_NAME}:${APP_NAME}-fremantle/${APP_NAME}/"
+nemo_obs_package_path="home:MartinK:${APP_NAME}:${APP_NAME}-nemo/${APP_NAME}/"
 
 ## generate version string
-short_version_string=${version}${separator}${minor}${separator}${build}
-echo ${short_version_string} > ${name}/version
-
-
-## add changelog on the lines after
-## "changelog=$( cat <<EOF"
-## and before
-## "EOF"
-
-changelog=$( cat <<EOF
-- massive map layer update ! :)
- - new OpenStreetMap layers
-  - Mapnik b/w
-  - Landscape
-  - no labels
-  - labels (en)
-  - Hike and Bike
-  - OpenTopoMap
-  - Land Shading
- - CloudMade Layers
-  - The Original
-  - Fine Line
-  - Red Alert
-  - Midnight Commander
-  - Fresh
-  - No-Names (shows unnamed roads and streats in OSM)
-  - Pale Dawn
-  - Tourist
-  - Blackout
-  - Thin
-  - Cycle Walk
- - CloudMade 2x
-  - same layers, double-sized text and roads
-  - good for high-DPI screens
- - Freemap.sk
-  - autoatlas
-  - touristic
-  - cyklomap
-  - skimap
-  - public transit
- - new Google layers
-  - traffic
-  - traffic overlay
-  - traffic overlay labeled
-  - public transit
-  - weather Clesius
-  - weather Fahrenheit
-  - terrain
-  - terrain only (no labels)
- - Czech layers
-  - amapy Tourist layer
- - OpenSignal (mobile networg coverage)
-  - all overlay
- - Yandex
-  - maps
-  - satellite
-  - overlay
-- added new coordinate tile coordinate substitution method
-EOF
-)
+short_version_string=${APP_VERSION_MAIN}${separator}${APP_VERSION_MINOR}${separator}${APP_VERSION_BUILD}
+echo ${short_version_string} > ${APP_NAME}/version
 
 ## update changelog file
-#rm -f  ${name}/${name}.changelog
-echo "${changelog}" >  ${name}/current_changelog
+#rm -f  ${APP_NAME}/${APP_NAME}.changelog
+echo "${APP_CHANGELOG}" >  ${APP_NAME}/current_changelog
 
 ## start from current directory
 start_path=`pwd`
 
 echo $start_path
 
-echo "** packaging "${name}" version: "${short_version_string}
+echo "** packaging "${APP_NAME}" version: "${short_version_string}
 
 ## pull changes from git
 echo "* updating from git"
-cd  ${name}-git
+cd  ${APP_NAME}-git
 git pull
 
 ## get git tag and version info
@@ -101,15 +42,15 @@ cd ..
 
 ## make sure the src folder in main folder is empty
 echo "* cleaning source folder"
-rm -rf "${name}/src/"
-mkdir "${name}/src/"
+rm -rf "${APP_NAME}/src/"
+mkdir "${APP_NAME}/src/"
 
 # copy source from GIT to the src folder
 echo "* copying source from git"
-cp -R ${name}-git/* ${name}/src
+cp -R ${APP_NAME}-git/* ${APP_NAME}/src
 
 ## change directory to the packaging folder
-cd ${name}
+cd ${APP_NAME}
 
 ## remove any *.pyc files and the .git folder
 echo "* cleaning" # remove unneeded files
@@ -138,7 +79,7 @@ python setup.py sdist_harmattan
 cd ${start_path}
 
 ## archive the package Harmattan
-#cp ${name}/dist/*.* archive/
+#cp ${APP_NAME}/dist/*.* archive/
 ## TODO: separate harmattan archive
 
 ## replace the OBS package by newer version
@@ -146,30 +87,30 @@ rm -f ${obs_package_path}*.tar.gz
 rm -f ${obs_package_path}*.deb
 rm -f ${obs_package_path}*.changes
 rm -f ${obs_package_path}*.dsc
-cp ${name}/dist/*.* ${obs_package_path}
+cp ${APP_NAME}/dist/*.* ${obs_package_path}
 rm -f ${obs_package_path}*.spec
 
 
 ## build the nemo tarball & specfile
 
 ## Nemo cleanup
-rm -rf ${name}/dist/*
-rm -rf ${name}/deb_dist/*
+rm -rf ${APP_NAME}/dist/*
+rm -rf ${APP_NAME}/deb_dist/*
 rm -rf ${nemo_obs_package_path}/*.tar.gz
 rm -rf ${nemo_obs_package_path}/*.spec
 ## run the setup.py
-cd ${name}
+cd ${APP_NAME}
 python setup.py sdist_nemo
 cd ..
-cp ${name}/dist/*.tar.gz ${nemo_obs_package_path}
-cp ${name}/dist/*.spec ${nemo_obs_package_path}
+cp ${APP_NAME}/dist/*.tar.gz ${nemo_obs_package_path}
+cp ${APP_NAME}/dist/*.spec ${nemo_obs_package_path}
 
 ## build the Fremantle package using the maemo_sdist command
 
 echo "* building Fremantle package"
 
 ## change directory to the packaging folder
-cd ${name}
+cd ${APP_NAME}
 
 echo "* building"
 rm -rf dist/*
@@ -180,27 +121,27 @@ cd ${start_path}
 
 ## archive the Fremantle package
 ## so that it can be used for the Autobuilder
-cp ${name}/dist/*.* archive/
+cp ${APP_NAME}/dist/*.* archive/
 
 ## create a plain tarball
-mkdir ${name}/tmp_tarballing/
-mv ${name}/src/ ${name}/tmp_tarballing/${name}
-cd ${name}/tmp_tarballing/
-tar czf ${name}_${short_version_string}.tar.gz ${name}
+mkdir ${APP_NAME}/tmp_tarballing/
+mv ${APP_NAME}/src/ ${APP_NAME}/tmp_tarballing/${APP_NAME}
+cd ${APP_NAME}/tmp_tarballing/
+tar czf ${APP_NAME}_${short_version_string}.tar.gz ${APP_NAME}
 cd ../..
 ## archive the tarball
-mv ${name}/tmp_tarballing/${name}_${short_version_string}.tar.gz archive/plain_tarballs/
+mv ${APP_NAME}/tmp_tarballing/${APP_NAME}_${short_version_string}.tar.gz archive/plain_tarballs/
 
 ## cleanup
-rm -rf ${name}/tmp_tarballing/
-rm -rf ${name}/src/
+rm -rf ${APP_NAME}/tmp_tarballing/
+rm -rf ${APP_NAME}/src/
 
 ## replace the OBS package by newer version
 rm -f ${fremantle_obs_package_path}/*.tar.gz
 rm -f ${fremantle_obs_package_path}/*.deb
 rm -f ${fremantle_obs_package_path}/*.changes
 rm -f ${fremantle_obs_package_path}/*.dsc
-cp ${name}/dist/*.* ${fremantle_obs_package_path}
+cp ${APP_NAME}/dist/*.* ${fremantle_obs_package_path}
 rm -f ${fremantle_obs_package_path}/*.spec
 
 ## wait for a key press so that the package can be checked
@@ -219,7 +160,7 @@ then
   echo "* Harmattan: uploading to OBS"
   cd ${obs_package_path}
   osc ar
-  osc commit -m "${name} version ${short_version_string}"
+  osc commit -m "${APP_NAME} version ${short_version_string}"
   echo "* Harmattan OBS upload done"
 else
   echo "* no Harmattan upload exiting"
@@ -233,7 +174,7 @@ then
   echo "* Fremantle: uploading to OBS"
   cd ${fremantle_obs_package_path}
   osc ar
-  osc commit -m "${name} version ${short_version_string}"
+  osc commit -m "${APP_NAME} version ${short_version_string}"
   echo "* Fremantle OBS upload done"
 else
   echo "* no Fremantle upload"
@@ -246,7 +187,7 @@ then
   echo "* Nemo: uploading to OBS"
   cd ${nemo_obs_package_path}
   osc ar
-  osc commit -m "${name} version ${short_version_string}"
+  osc commit -m "${APP_NAME} version ${short_version_string}"
   echo "* Nemo OBS upload done"
 else
   echo "* no Nemo upload"
@@ -261,19 +202,19 @@ then
   cd ${start_path}
   cd ${obs_package_path}
   osc ar
-  osc commit -m "${name} version ${short_version_string}"
+  osc commit -m "${APP_NAME} version ${short_version_string}"
   echo "* OBS Harmattan upload done"
   echo "OBS Fremantle upload"
   cd ${start_path}
   cd ${fremantle_obs_package_path}
   osc ar
-  osc commit -m "${name} version ${short_version_string}"
+  osc commit -m "${APP_NAME} version ${short_version_string}"
   echo "* Fremantle OBS upload done"
   echo "OBS Nemo upload"
   cd ${start_path}
   cd ${nemo_obs_package_path}
   osc ar
-  osc commit -m "${name} version ${short_version_string}"
+  osc commit -m "${APP_NAME} version ${short_version_string}"
   echo "* Nemo OBS upload done"
   echo "* combined OBS upload done"
 else
