@@ -121,7 +121,13 @@ cd ${start_path}
 
 ## archive the Fremantle package
 ## so that it can be used for the Autobuilder
-cp ${APP_NAME}/dist/*.* archive/
+cp ${APP_NAME}/dist/*.* archive/fremantle
+## also replace the current package, which is used
+## by a SCP script for the Maemo autobuilder
+rm -f archive/fremantle/current/*.tar.gz
+rm -f archive/fremantle/current/*.changes
+rm -f archive/fremantle/current/*.dsc
+cp ${APP_NAME}/dist/*.* archive/fremantle/current
 
 ## create a plain tarball
 mkdir ${APP_NAME}/tmp_tarballing/
