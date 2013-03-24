@@ -1,3 +1,23 @@
+* Sun Mar 24 2013 Martin Kolman <martin.kolman@gmail.com> - 0.40.1
+- map overlay support in QML GUI
+ - based on a patch by Wikiwide - thanks ! :)
+ - multiple overlays can be used at the same time
+ - per-layer opacity setting
+ - nice overlay configuration UI
+ - there is no hard limit on number of overlays at once
+  - too many layers at once might slow down the application though :)
+ - overlay configuration is not yet persistent
+- pretty print map layer loading status
+ - also make sure they don't overlap when overlays are used
+- long back-button press now returns to map screen
+- some new map layers were added to the QML map layer selector
+ - eventually it should use the same layer list as the GTK GUI
+- fix some warnings at startup
+- theme and mode are now exposed by the "modrana" QML context property
+* Mon Mar 18 2013 Martin Kolman <martin.kolman@gmail.com> - 0.39.11
+- Maemo autobuilder test rebuild
+* Mon Mar 18 2013 Martin Kolman <martin.kolman@gmail.com> - 0.39.10
+- initial map layer and map layer group objects
 * Sun Mar 17 2013 Martin Kolman <martin.kolman@gmail.com> - 0.39.9
 - massive map layer update ! :)
  - new OpenStreetMap layers

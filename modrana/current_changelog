@@ -1,48 +1,15 @@
-- massive map layer update ! :)
- - new OpenStreetMap layers
-  - Mapnik b/w
-  - Landscape
-  - no labels
-  - labels (en)
-  - Hike and Bike
-  - OpenTopoMap
-  - Land Shading
- - CloudMade Layers
-  - The Original
-  - Fine Line
-  - Red Alert
-  - Midnight Commander
-  - Fresh
-  - No-Names (shows unnamed roads and streats in OSM)
-  - Pale Dawn
-  - Tourist
-  - Blackout
-  - Thin
-  - Cycle Walk
- - CloudMade 2x
-  - same layers, double-sized text and roads
-  - good for high-DPI screens
- - Freemap.sk
-  - autoatlas
-  - touristic
-  - cyklomap
-  - skimap
-  - public transit
- - new Google layers
-  - traffic
-  - traffic overlay
-  - traffic overlay labeled
-  - public transit
-  - weather Clesius
-  - weather Fahrenheit
-  - terrain
-  - terrain only (no labels)
- - Czech layers
-  - amapy Tourist layer
- - OpenSignal (mobile networg coverage)
-  - all overlay
- - Yandex
-  - maps
-  - satellite
-  - overlay
-- added new coordinate tile coordinate substitution method
+- map overlay support in QML GUI
+ - based on a patch by Wikiwide - thanks ! :)
+ - multiple overlays can be used at the same time
+ - per-layer opacity setting
+ - nice overlay configuration UI
+ - there is no hard limit on number of overlays at once
+  - too many layers at once might slow down the application though :)
+ - overlay configuration is not yet persistent
+- pretty print map layer loading status
+ - also make sure they don't overlap when overlays are used
+- long back-button press now returns to map screen
+- some new map layers were added to the QML map layer selector
+ - eventually it should use the same layer list as the GTK GUI
+- fix some warnings at startup
+- theme and mode are now exposed by the "modrana" QML context property
