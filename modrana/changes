@@ -1,3 +1,6 @@
+* Tue Mar 26 2013 Martin Kolman <martin.kolman@gmail.com> - 0.40.2
+- add new coordinate substitution method for layers using quadtree/quadkey addressing
+- add the VE UKOS layer
 * Sun Mar 24 2013 Martin Kolman <martin.kolman@gmail.com> - 0.40.1
 - map overlay support in QML GUI
  - based on a patch by Wikiwide - thanks ! :)

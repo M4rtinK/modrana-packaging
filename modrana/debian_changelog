@@ -1,3 +1,11 @@
+modrana (0.40.2) stable; urgency=low
+
+  * Tue Mar 26 2013 Martin Kolman <martin.kolman@gmail.com> - 0.40.2
+  *  - add new coordinate substitution method for layers using quadtree/quadkey addressing
+  *  - add the VE UKOS layer
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Tue, 26 Mar 2013 15:49:10 +0000
+
 modrana (0.40.1) stable; urgency=low
 
   * Sun Mar 24 2013 Martin Kolman <martin.kolman@gmail.com> - 0.40.1
