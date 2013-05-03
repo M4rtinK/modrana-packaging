@@ -1,0 +1,11 @@
+.git
+.idea
+.settings
+__pycache__
+nbproject
+places.txt
+monav_armv7
+monav_amd64
+__google
+gprof2dot.py
+_mod*
