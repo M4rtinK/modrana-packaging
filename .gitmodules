@@ -1,0 +1,6 @@
+[submodule "modrana/android/android-project"]
+	path = modrana/android/android-project
+	url = https://github.com/M4rtinK/modrana-android-project.git
+[submodule "android-project"]
+	path = android-project
+	url = https://github.com/M4rtinK/modrana-android-project.git
