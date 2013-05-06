@@ -9,10 +9,10 @@ TOPLEVEL=`pwd`
 INPUT_APK="modrana-debug.apk"
 OUTPUT_FOLDER="archive/android"
 
-echo "* updating from Git"
-cd modrana-git
-git pull
-cd $TOPLEVEL
+#echo "* updating from Git"
+#cd modrana-git
+#git pull
+#cd $TOPLEVEL
 
 echo "* rsyncing and filtering"
 rsync -avzsh --delete --delete-excluded --progress modrana-git/ ${PROJECT_FOLDER}/app/modrana/  --exclude-from 'exclude-list.txt'
@@ -28,10 +28,13 @@ cp modrana/version ${PROJECT_FOLDER}/app/modrana/version.txt
 
 echo "* making Android package"
 cd ${PROJECT_FOLDER}
-#pydroid deploy complete
+pydroid deploy complete
 cd $TOPLEVEL
 
-echo "* extracting modRana package"
+echo "* copying modRana package to archive"
 cp ${PROJECT_FOLDER}/android/bin/${INPUT_APK} ${OUTPUT_FOLDER}/modrana_${VERSION_STRING}.apk
+cp ${PROJECT_FOLDER}/android/bin/${INPUT_APK} ${OUTPUT_FOLDER}/modrana_latest.apk
+echo ${OUTPUT_FOLDER}/modrana_${VERSION_STRING}.apk
+echo ${OUTPUT_FOLDER}/modrana_latest.apk
 
 echo "* Android packaging done"
