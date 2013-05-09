@@ -1,3 +1,10 @@
+* Thu May 09 2013 Martin Kolman <martin.kolman@gmail.com> - 0.41.2
+- fix modRana not showing monav routing data packs
+- if map folder path is redirected by config file option, the monav routing data folder is also using the redirected path
+- new option for disabling (almost) all animations in QML GUI
+ - the option is in Options->UI
+ - when enabled, page switching becomes ridiculously fast, even on the N900 :)
+ - dialog animations are still ON, as there doesn't seem to be a clear way of switching them OFF
 * Sat May 04 2013 Martin Kolman <martin.kolman@gmail.com> - 0.41.1
 - modRana is now Python 3 compatible
  - Python 2.5 compatibility was of course preserved
