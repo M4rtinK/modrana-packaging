@@ -1,4 +1,6 @@
-<directory name="modrana" rev="1" srcmd5="f58b07a2db5550f2cb4d326764877db0" vrev="1">
-  <entry md5="5925c4efdb106ae75896fb191cb02440" mtime="1368875222" name="modrana_0.41.2.spec" size="149000" />
-  <entry md5="078356ffc4e04426257020dc423be6fd" mtime="1368875225" name="modrana_0.41.2.tar.gz" size="1835909" />
+<directory name="modrana" rev="2" srcmd5="f02bff781fc7cdf1657de96c541ce814" vrev="1">
+  <entry md5="63883c3c253326997e30810ceb11e329" mtime="1373757772" name="modrana_0.42.1.changes" size="1234" />
+  <entry md5="94e20ef4bfa9610a7294d738b5f60c01" mtime="1373757773" name="modrana_0.42.1.dsc" size="274" />
+  <entry md5="44620bc1ba76b84b5e8f14480995e657" mtime="1373757773" name="modrana_0.42.1.spec" size="150870" />
+  <entry md5="4a379efea84823b18ca802ded0ccae36" mtime="1373757776" name="modrana_0.42.1.tar.gz" size="2030654" />
 </directory>

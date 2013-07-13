@@ -1,3 +1,19 @@
+modrana (0.42.1) stable; urgency=low
+
+  * Sat Jul 13 2013 Martin Kolman <martin.kolman@gmail.com> - 0.42.1
+  *  - add batch tile redownload & update
+  *   - accessible from the "Edit" submenu in batch dl menu
+  *   - redownload ON -> download all tiles, even when locally available
+  *   - redownload OFF (default) -> download only tiles that are not locally available
+  *   - redownload update -> download only tiles that ARE locally available
+  *  - add 32bit (i386) Monav routing server binary by jperon - Thanks !
+  *   - this should make offline routing on 32bit x86 machines possible
+  *  - preliminary support for high DPI screens in QML GUI
+  *  - fix online routing not respecting directions language
+  *  - fix tracebacks with some routes from Monav offline routing
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Sun, 14 Jul 2013 01:13:45 +0000
+
 modrana (0.41.2) stable; urgency=low
 
   * Thu May 09 2013 Martin Kolman <martin.kolman@gmail.com> - 0.41.2
