@@ -9,9 +9,9 @@
 source config.sh
 
 separator="."
-obs_package_path="home:MartinK:${APP_NAME}/${APP_NAME}/" ## Harmattan package OBS path
-fremantle_obs_package_path="home:MartinK:${APP_NAME}:${APP_NAME}-fremantle/${APP_NAME}/"
-nemo_obs_package_path="home:MartinK:${APP_NAME}:${APP_NAME}-nemo/${APP_NAME}/"
+# for now, obs_package_path == Nemo OBS path
+# (due to MeeGo COBS shutdown)
+nemo_obs_package_path="home:MartinK:${APP_NAME}/${APP_NAME}/"
 
 ## generate version string
 short_version_string=${APP_VERSION_MAIN}${separator}${APP_VERSION_MINOR}${separator}${APP_VERSION_BUILD}
@@ -83,12 +83,12 @@ cd ${start_path}
 ## TODO: separate harmattan archive
 
 ## replace the OBS package by newer version
-rm -f ${obs_package_path}*.tar.gz
-rm -f ${obs_package_path}*.deb
-rm -f ${obs_package_path}*.changes
-rm -f ${obs_package_path}*.dsc
-cp ${APP_NAME}/dist/*.* ${obs_package_path}
-rm -f ${obs_package_path}*.spec
+#rm -f ${obs_package_path}*.tar.gz
+#rm -f ${obs_package_path}*.deb
+#rm -f ${obs_package_path}*.changes
+#rm -f ${obs_package_path}*.dsc
+#cp ${APP_NAME}/dist/*.* ${obs_package_path}
+#rm -f ${obs_package_path}*.spec
 
 
 ## build the nemo tarball & specfile
@@ -143,12 +143,12 @@ rm -rf ${APP_NAME}/tmp_tarballing/
 rm -rf ${APP_NAME}/src/
 
 ## replace the OBS package by newer version
-rm -f ${fremantle_obs_package_path}/*.tar.gz
-rm -f ${fremantle_obs_package_path}/*.deb
-rm -f ${fremantle_obs_package_path}/*.changes
-rm -f ${fremantle_obs_package_path}/*.dsc
-cp ${APP_NAME}/dist/*.* ${fremantle_obs_package_path}
-rm -f ${fremantle_obs_package_path}/*.spec
+#rm -f ${fremantle_obs_package_path}/*.tar.gz
+#rm -f ${fremantle_obs_package_path}/*.deb
+#rm -f ${fremantle_obs_package_path}/*.changes
+#rm -f ${fremantle_obs_package_path}/*.dsc
+#cp ${APP_NAME}/dist/*.* ${fremantle_obs_package_path}
+#rm -f ${fremantle_obs_package_path}/*.spec
 
 ## wait for a key press so that the package can be checked
 ## before upload to OBS
