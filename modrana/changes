@@ -1,3 +1,19 @@
+* Tue Sep 10 2013 Martin Kolman <martin.kolman@gmail.com> - 0.43.2
+- fix the annoying "Xlib: unexpected async reply" error
+ - thanks to Geoff Kuening for helping to find the root cause ! :)
+- fix navigation messages when using Monav offline routing
+ - no more "None to First Street" :)
+- fix route OSD menu
+- reverse geocoding now uses Nominatim instead of Google
+- start and destination address display takes aspect ratio into account
+* Wed Aug 14 2013 Martin Kolman <martin.kolman@gmail.com> - 0.43.1
+- address search now works again in GTK GUI
+- the QML GUI now supports address search
+- the address search service was switched from Google to Nominatim
+- the QML GUI should now handle high-DPI screens properly
+- the design of the QML GUI was improved in some places to be more consistent
+- multipple background worker threads can be now cancelled individually
+- modRana now uses 4 space indentation :)
 * Sat Jul 13 2013 Martin Kolman <martin.kolman@gmail.com> - 0.42.1
 - add batch tile redownload & update
  - accessible from the "Edit" submenu in batch dl menu

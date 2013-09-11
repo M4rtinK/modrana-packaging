@@ -5,8 +5,8 @@
 
 export APP_NAME='modrana'
 export APP_VERSION_MAIN='0'
-export APP_VERSION_MINOR='42'
-export APP_VERSION_BUILD='1'
+export APP_VERSION_MINOR='43'
+export APP_VERSION_BUILD='2'
 
 ## add changelog on the lines after
 ## "APP_CHANGELOG=$( cat <<EOF"
@@ -14,15 +14,12 @@ export APP_VERSION_BUILD='1'
 ## "EOF"
 
 export APP_CHANGELOG=$( cat <<EOF
-- add batch tile redownload & update
- - accessible from the "Edit" submenu in batch dl menu
- - redownload ON -> download all tiles, even when locally available
- - redownload OFF (default) -> download only tiles that are not locally available
- - redownload update -> download only tiles that ARE locally available
-- add 32bit (i386) Monav routing server binary by jperon - Thanks !
- - this should make offline routing on 32bit x86 machines possible
-- preliminary support for high DPI screens in QML GUI
-- fix online routing not respecting directions language
-- fix tracebacks with some routes from Monav offline routing
+- fix the annoying "Xlib: unexpected async reply" error
+ - thanks to Geoff Kuening for helping to find the root cause ! :)
+- fix navigation messages when using Monav offline routing
+ - no more "None to First Street" :)
+- fix route OSD menu
+- reverse geocoding now uses Nominatim instead of Google
+- start and destination address display takes aspect ratio into account
 EOF
 )
