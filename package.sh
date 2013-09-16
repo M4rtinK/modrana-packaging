@@ -78,9 +78,13 @@ python setup.py sdist_harmattan
 ## return back to the main folder
 cd ${start_path}
 
-## archive the package Harmattan
-#cp ${APP_NAME}/dist/*.* archive/
-## TODO: separate harmattan archive
+## archive the Harmattan package
+cp ${APP_NAME}/dist/*.* archive/harmattan
+## also replace the current package
+rm -f archive/harmattan/current/*.tar.gz
+rm -f archive/harmattan/current/*.changes
+rm -f archive/harmattan/current/*.dsc
+cp ${APP_NAME}/dist/*.* archive/harmattan/current
 
 ## replace the OBS package by newer version
 #rm -f ${obs_package_path}*.tar.gz
