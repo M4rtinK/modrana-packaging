@@ -46,6 +46,8 @@ function main_clean {
     echo "* cleaning source folder"
     rm -rf "${APP_NAME}/src/"
     mkdir "${APP_NAME}/src/"
+    rm -rf ${APP_NAME}/dist/*
+    rm -rf ${APP_NAME}/deb_dist/*
 }
 
 function copy_source {
@@ -78,20 +80,20 @@ function prepare_build {
     create_version_file
 }
 
+function run_setup_py {
+    ## run setup.py for the given target
+    cd ${APP_NAME}
+    python setup.py $1 &> ${LOG_FOLDER_NAME}/setup.py_target_${1}.log
+    cd ..
+}
 
 function build_harmattan_package {
     ## build the Harmattan package using the maemo_sdist command
-    echo "* building Harmattan package"
+    echo "** building Harmattan package"
     prepare_build
 
-    ## cleanup
-    rm -rf ${APP_NAME}/dist/*
-    rm -rf ${APP_NAME}/deb_dist/*
-
     ## run the Harmattan setup.py file
-    cd ${APP_NAME}
-    python setup.py sdist_harmattan
-    cd ..
+    run_setup_py sdist_harmattan
 
     ## archive the Harmattan package
     cp ${APP_NAME}/dist/*.* archive/harmattan
@@ -112,16 +114,15 @@ function build_harmattan_package {
 
 function build_nemo_package {
     ## build the nemo tarball & specfile
+    echo "** building the Nemo package"
+    prepare_build
 
     ## Nemo cleanup
-    rm -rf ${APP_NAME}/dist/*
-    rm -rf ${APP_NAME}/deb_dist/*
     rm -rf ${nemo_obs_package_path}/*.tar.gz
     rm -rf ${nemo_obs_package_path}/*.spec
     ## run the Nemo setup.py
-    cd ${APP_NAME}
-    python setup.py sdist_nemo
-    cd ..
+    run_setup_py sdist_nemo
+
     cp ${APP_NAME}/dist/*.tar.gz ${nemo_obs_package_path}
     cp ${APP_NAME}/dist/*.spec ${nemo_obs_package_path}
 }
@@ -184,13 +185,11 @@ function prepare_sailfish_source {
     python3.3 -m compileall ${APP_NAME}/src &> ${APP_NAME}/build_logs/sailfish_python_compileall.log
 }
 
-
 function build_sailfish_package {
     ## build the Sailfish tarball & specfile
+    echo "** building the Sailfish package"
 
     ## Sailfish cleanup
-    rm -rf ${APP_NAME}/dist/*
-    rm -rf ${APP_NAME}/deb_dist/*
     rm -rf ${sailfish_obs_package_path}/*.tar.gz
     rm -rf ${sailfish_obs_package_path}/*.spec
 
@@ -201,9 +200,9 @@ function build_sailfish_package {
     prepare_sailfish_source
 
     ## run the Sailfish setup.py
-    cd ${APP_NAME}
-    python setup.py sdist_sailfish &> ${LOG_FOLDER_NAME}/sailfish_python_py.log
-    cd ..
+    run_setup_py sdist_sailfish
+
+    echo "* checking Sailfish build results:"
     ls -lah ${APP_NAME}/dist/
     cp ${APP_NAME}/dist/*.tar.gz ${sailfish_obs_package_path}
     cp ${APP_NAME}/dist/*.spec ${sailfish_obs_package_path}
@@ -211,18 +210,11 @@ function build_sailfish_package {
 
 function build_fremantle_package {
     ## build the Fremantle package using the maemo_sdist command
-
-    echo "* building Fremantle package"
-
-    ## change directory to the packaging folder
-    cd ${APP_NAME}
-
-    echo "* building"
-    rm -rf dist/*
-    python setup.py sdist_fremantle
-
-    ## return back to main folder
-    cd ${start_path}
+    echo "** building the Fremantle package"
+    prepare_build
+    
+    ## run the Fremantle setup.py target
+    run_setup_py sdist_fremantle
 
     ## archive the Fremantle package
     ## so that it can be used for the Autobuilder
