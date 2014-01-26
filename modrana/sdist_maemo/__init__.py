@@ -301,7 +301,7 @@ class sdist_maemo(Command):
         self.run_command('install')
         
         #Remove the bloody egg-info files that are not needed
-        remove_tree("build/%s/usr/local" % self.debian_package)
+        #remove_tree("build/%s/usr/local" % self.debian_package)
 
         #Create the debian rules
         rules = Rules(self.debian_package,DATA_DIR, self.aegis_manifest is not None)
@@ -654,7 +654,7 @@ class sdist_nemo(Command):
         self.run_command('install')
 
         #Remove the bloody egg-info files that are not needed
-        remove_tree("build/%s/usr/local" % self.name)
+        #remove_tree("build/%s/usr/local" % self.name)
         # TODO: is this still needed for Nemo package ?
 
         #Create the Nemo specfile
