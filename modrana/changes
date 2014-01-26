@@ -1,3 +1,22 @@
+* Fri Jan 24 2014 Martin Kolman <martin.kolman@gmail.com> - 0.44.1
+- added new Qt5+PyOtherSide based GUI
+ - supports multiple QML components sets as backends
+ - the Silica component set can be used on Sailfish to provide a native look
+ - the Controls set, a post 5.1 Qt built-in, can be used on desktop and elsewhere
+ - the GUI is almost fully asynchornous so it should be even more repsonsive than the Qt4 QML GUI
+ - much shorter startup time due to PyOtherSide usage
+ - based on QtQuick 2.0, so fully hardware accelerated
+- new theme named Silica
+ - primarily aimed for use on Sailfish OS, but can be also used to provide a slight Sailfish like look on other platforms
+- more white monochromatic icons for the Silica and Night themes
+- Jolla device module
+* Mon Sep 30 2013 Martin Kolman <martin.kolman@gmail.com> - 0.43.4
+- fix python-protobuf dependency
+ - looks newer version is needed for Monav routing server
+- only import Monav support once actually needed
+ - should shorten startup a little bit
+ - in case Monav support fails to load, the route module should still load fine
+- use conic based connectivity detection on Fremantle
 * Sun Sep 29 2013 Martin Kolman <martin.kolman@gmail.com> - 0.43.3
 - don't crash if a filesystem path can't be created
 - fix online routing not respecting route parameters
