@@ -126,6 +126,65 @@ function build_nemo_package {
     cp ${APP_NAME}/dist/*.spec ${nemo_obs_package_path}
 }
 
+function prepare_sailfish_source {
+    ## remove stuff we don't need when installing the package
+    ## from a package on Sailfish OS and mangle its structure
+    ## so that sailfish-qml can launch it
+
+    echo "* cleaning source for Sailfish"
+
+    mv ${APP_NAME}/src ${APP_NAME}/src_full
+
+    ## clean the source folder based on rsync exclude list in
+    ## ${APP_name}/sailfish/exclude.txt
+    rsync -ar --exclude-from  ${APP_NAME}/sailfish/exclude.txt ${APP_NAME}/src_full/ ${APP_NAME}/src 
+
+    ## now we can remove the full folder
+    rm -rf ${APP_NAME}/src_full
+
+    echo "* mangling source for Sailfish"
+
+    ## change Universal Component import to relative imports
+    ## as the Sailfish QML launcher is too stupid to support
+    ## adding custom import paths and using a C++ loader
+    ## doesn't seem like a good idea for othervise
+    ## pure Python/QML application
+
+    local qt5_qml_path="${APP_NAME}/src/modules/gui_modules/gui_qt5/qml"
+    local qt5_qml_path_relative=
+    local UC_silica_path="${qt5_qml_path}/universal_components/silica/UC"
+    local UC_silica_path_relative="../modules/gui_modules/gui_qt5/qml/universal_components/silica/UC"
+  
+    ## move the qml folder to future install folder top-level
+    mv $qt5_qml_path ${APP_NAME}/src
+    
+    ## move the UC Silica module to the QML folder because #unline qmlscene, the 
+    ## Sailfish QML launcher can't be bothered to support inclusing additional import paths
+    mv ${APP_NAME}/src/qml/universal_components/silica/UC ${APP_NAME}/src/qml/UC
+    rm -rf ${APP_NAME}/src/qml/universal_components/
+    
+    ## replace proper module import with directory-relative ones
+    find ${APP_NAME}/src/qml -type f -exec sed -i 's/import UC 1\.0/import "\.\/UC"/g' {} \;
+
+    ## tell the main QML script the platform id so that we don't have to run
+    ## platform detection
+    sed -i 's/property string \_PLATFORM\_ID\_/property string \_PLATFORM\_ID\_ \: "jolla"/g' ${APP_NAME}/src/qml/main.qml
+
+    ## also, the sailfish-qml launcher, in its infinite wisdom, sets PWD to /home/nemo.......
+    ## so we have to account for this (why oh why we need to do such hacks...)    
+    sed -i 's/property string \_PYTHON\_IMPORT\_PATH\_/property string \_PYTHON\_IMPORT\_PATH\_ \: "\/usr\/share\/harbour-modrana"/g' ${APP_NAME}/src/qml/main.qml
+
+    ## furthermore the stupid Sailfish QML launcher needs the app structured like this:
+    ## /usr/share/harbour-<app name>/qml/harbour-<app name>.qml
+    ## so we need to rename the sensibly named main.qml to modrana.qml
+    mv ${APP_NAME}/src/qml/main.qml ${APP_NAME}/src/qml/harbour-${APP_NAME}.qml
+
+    ## also byte-compile all Python code
+    echo "* byte-compiling Python code with Python 3.3"
+    python3.3 -m compileall ${APP_NAME}/src &> ${APP_NAME}/build_logs/sailfish_python_compileall.log
+}
+
+
 function build_sailfish_package {
     ## build the Sailfish tarball & specfile
 
@@ -136,12 +195,14 @@ function build_sailfish_package {
     rm -rf ${sailfish_obs_package_path}/*.spec
 
     ## regenerate source folder that might got nuked
-    ## by Nemo package generation, so clean it first
+    ## by pther package generation, so clean it first
     prepare_build
+    ## do Sailfish specific tweaks
+    prepare_sailfish_source
 
     ## run the Sailfish setup.py
     cd ${APP_NAME}
-    python setup.py sdist_sailfish
+    python setup.py sdist_sailfish &> ${LOG_FOLDER_NAME}/sailfish_python_py.log
     cd ..
     ls -lah ${APP_NAME}/dist/
     cp ${APP_NAME}/dist/*.tar.gz ${sailfish_obs_package_path}
@@ -263,7 +324,7 @@ then
   osc commit -m "${APP_NAME} version ${short_version_string}"
   echo "* Sailfish OBS upload done"
 else
-  echo "* no Nemo upload"
+  echo "* no Sailfish upload"
 fi
 
 

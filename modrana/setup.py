@@ -8,7 +8,8 @@ import sys
 import time
 
 reload(sys).setdefaultencoding("UTF-8")
-SUPPORTED_TARGETS = ["sdist_harmattan", "sdist_fremantle", "sdist_nemo", "sdist_fedora"]
+SUPPORTED_TARGETS = ["sdist_harmattan", "sdist_fremantle",
+                     "sdist_nemo", "sdist_fedora", "sdist_sailfish" ]
 
 ERROR_WRONG_NUMBER_OF_ARGUMENTS = 1
 ERROR_UNSUPPORTED_TARGET = 2
@@ -31,18 +32,19 @@ if TARGET not in SUPPORTED_TARGETS:
 
 import os
 
-
-
 try:
   from sdist_maemo import sdist_maemo as _sdist_maemo
   from sdist_maemo import sdist_nemo as _sdist_nemo
+  from sdist_maemo import sdist_sailfish as _sdist_sailfish
 #  from sdist_maemo import sdist_fedora as _sdist_fedora
   sdist_maemo = _sdist_maemo
   sdist_nemo = _sdist_nemo
+  sdist_sailfish = _sdist_sailfish
 except ImportError:
   sdist_maemo = None
   sdist_nemo = None
   sdist_fedora = None
+  sdist_sailfish = None
   print('%s command not available' % TARGET)
   sys.exit(ERROR_TARGET_IMPORT_ERROR)
 
@@ -70,6 +72,7 @@ FREMANTLE_DESKTOP_FILE_PATH = os.path.join(DESKTOP_FILE_PATH, "hildon")
 INSTALLATION_PATH="/opt/modrana"
 ICON_CATEGORY="apps"
 ICON_SIZES=[80,64]
+ICON_NAME=APP_NAME
 BUGTRACKER_URL = "http://talk.maemo.org/showthread.php?t=58861"
 PROJECT_URL = "http://www.modrana.org"
 ## load current changelog from the current_changelog file,
@@ -95,10 +98,16 @@ elif TARGET == "sdist_fremantle":
   INPUT_DESKTOP_FILE="fremantle/%s.desktop" % APP_NAME
 elif TARGET == "sdist_nemo":
   INPUT_DESKTOP_FILE="nemo/%s.desktop" % APP_NAME
+elif TARGET == "sdist_sailfish":
+  INPUT_DESKTOP_FILE="sailfish/%s.desktop" % APP_NAME
+  INSTALLATION_PATH="/usr/share/harbour-modrana"
+  ICON_SIZES=[86]
+  APP_NAME="harbour-modrana"  # as always, blame Harbour FAQ! :P
+  ICON_NAME="modrana"
 else:
   INPUT_DESKTOP_FILE="%s.desktop" % APP_NAME
 
-print "%s SETUP.PY RUNNING" % PRETTY_APP_NAME
+print "*** %s setup.py running for target %s ***" % (PRETTY_APP_NAME, TARGET)
 
 
 def is_package(path):
@@ -168,7 +177,7 @@ else:
 ## add icons
 dataFiles.extend( [ (
                     "/usr/share/icons/hicolor/%sx%s/%s" % (size, size, ICON_CATEGORY),
-                    ["icons/%sx%s/%s.png" % (size, size, APP_NAME)]
+                    ["icons/%sx%s/%s.png" % (size, size, ICON_NAME)]
                     ) for size in ICON_SIZES ] )
 
 ## on Fremantle, add startup script to /usr/bin
@@ -207,6 +216,7 @@ setup(
     'sdist_fremantle': sdist_maemo,
     'sdist_harmattan': sdist_maemo,
     'sdist_nemo': sdist_nemo,
+    'sdist_sailfish': sdist_sailfish,
   },
   options={
     "sdist_ubuntu": {
@@ -295,6 +305,15 @@ python -m compileall -f %s
 
 exit 0
 """ % (INSTALLATION_PATH,INSTALLATION_PATH),
+    },
+    "sdist_sailfish": {
+      "section": "Applications/Productivity",
+      "copyright": "gpl",
+      "changelog": CHANGES,
+      "buildversion": str(BUILD),
+      "depends": "python3-base, sailfishsilica-qt5, mapplauncherd-booster-silica-qt5, pyotherside-qml-plugin-python3-qt5",
+      "build_depends" : "python3-base",
+      "architecture": "any",
     },
     "bdist_rpm": {
       "requires": "REPLACEME",
