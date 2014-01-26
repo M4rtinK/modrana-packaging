@@ -251,10 +251,10 @@ function make_tarball {
 }
 
 ## create paclages
-#build_harmattan_package
-#build_nemo_package
+build_harmattan_package
+build_nemo_package
 build_sailfish_package
-#build_fremantle_package
+build_fremantle_package
 make_tarball
 
 ## replace the OBS package by newer version
