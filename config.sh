@@ -8,6 +8,9 @@ export APP_VERSION_MAIN='0'
 export APP_VERSION_MINOR='44'
 export APP_VERSION_BUILD='1'
 
+export LOG_FOLDER_NAME=build_logs
+export LOG_FOLDER=${APP_NAME}/${LOG_FOLDER_NAME}/
+
 ## add changelog on the lines after
 ## "APP_CHANGELOG=$( cat <<EOF"
 ## and before
