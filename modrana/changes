@@ -1,3 +1,13 @@
+* Tue Jan 28 2014 Martin Kolman <martin.kolman@gmail.com> - 0.44.3
+- add missing libsailfishapp-launcher depency (provides the sailfish-qml utility)
+* Sun Jan 26 2014 Martin Kolman <martin.kolman@gmail.com> - 0.44.2
+- device modules now can override profile folder path
+ - and also cache folder path
+- use XDG paths when running on Sailfish OS
+ - main pofile is now in ~/.config/modrana
+ - maps, routing data, POIs and tracklogs are in ~/.local/share/modrana
+ - ./.cache/modrana is used for caching
+ - and if enabled, debug logs go to ~/Public/modrana_debug_logs
 * Fri Jan 24 2014 Martin Kolman <martin.kolman@gmail.com> - 0.44.1
 - added new Qt5+PyOtherSide based GUI
  - supports multiple QML components sets as backends

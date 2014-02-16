@@ -1,3 +1,23 @@
+modrana (0.44.3) stable; urgency=low
+
+  * Tue Jan 28 2014 Martin Kolman <martin.kolman@gmail.com> - 0.44.3
+  *  - add missing libsailfishapp-launcher depency (provides the sailfish-qml utility)
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Tue, 28 Jan 2014 22:23:40 +0000
+
+modrana (0.44.2) stable; urgency=low
+
+  * Sun Jan 26 2014 Martin Kolman <martin.kolman@gmail.com> - 0.44.2
+  *  - device modules now can override profile folder path
+  *   - and also cache folder path
+  *  - use XDG paths when running on Sailfish OS
+  *   - main pofile is now in ~/.config/modrana
+  *   - maps, routing data, POIs and tracklogs are in ~/.local/share/modrana
+  *   - ./.cache/modrana is used for caching
+  *   - and if enabled, debug logs go to ~/Public/modrana_debug_logs
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Mon, 27 Jan 2014 00:00:18 +0000
+
 modrana (0.43.4) stable; urgency=low
 
   * Mon Sep 30 2013 Martin Kolman <martin.kolman@gmail.com> - 0.43.4
