@@ -165,7 +165,23 @@ function prepare_sailfish_source {
     rm -rf ${APP_NAME}/src/qml/universal_components/
     
     ## replace proper module import with directory-relative ones
-    find ${APP_NAME}/src/qml -type f -exec sed -i 's/import UC 1\.0/import "\.\/UC"/g' {} \;
+
+    ## thanky you captan sailfish-qml !
+    ## without you, we won't be able to learn such nice Bash commands :)
+    function replace_import {
+        patern=modrana/src/qml/modrana_components/
+        if [[ $1 = $patern* ]]
+        then
+            sed -i 's/import UC 1\.0/import "\..\/UC"/g' $1
+        else
+            sed -i 's/import UC 1\.0/import "\.\/UC"/g' $1
+        fi
+
+    }
+
+    export -f replace_import
+
+    find ${APP_NAME}/src/qml -type f -exec bash -c 'replace_import "$0"' {} \;
 
     ## tell the main QML script the platform id so that we don't have to run
     ## platform detection
