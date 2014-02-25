@@ -99,7 +99,7 @@ elif TARGET == "sdist_fremantle":
 elif TARGET == "sdist_nemo":
   INPUT_DESKTOP_FILE="nemo/%s.desktop" % APP_NAME
 elif TARGET == "sdist_sailfish":
-  INPUT_DESKTOP_FILE="sailfish/%s.desktop" % APP_NAME
+  INPUT_DESKTOP_FILE="sailfish/harbour-%s.desktop" % APP_NAME
   INSTALLATION_PATH="/usr/share/harbour-modrana"
   ICON_SIZES=[86]
   APP_NAME="harbour-modrana"  # as always, blame Harbour FAQ! :P
