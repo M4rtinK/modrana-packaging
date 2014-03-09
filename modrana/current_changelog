@@ -1,2 +1,3 @@
-- fix theme color parsing on GTK GUI
-  - looks like the Silica theme broke it :)
+- fix speed display page in Qt 5/Sailfish GUI
+- show distance from current position for all search results in Qt 5/Sailfish GUI
+- show scroll decorators for most pages in Sailfish GUI

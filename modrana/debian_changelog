@@ -1,3 +1,12 @@
+modrana (0.45.5) stable; urgency=low
+
+  * Sun Mar 09 2014 Martin Kolman <martin.kolman@gmail.com> - 0.45.5
+  *  - fix speed display page in Qt 5/Sailfish GUI
+  *  - show distance from current position for all search results in Qt 5/Sailfish GUI
+  *  - show scroll decorators for most pages in Sailfish GUI
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Sun, 09 Mar 2014 22:41:34 +0000
+
 modrana (0.45.4) stable; urgency=low
 
   * Sun Mar 02 2014 Martin Kolman <martin.kolman@gmail.com> - 0.45.4
