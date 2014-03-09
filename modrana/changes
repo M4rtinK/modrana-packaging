@@ -1,3 +1,30 @@
+* Sun Mar 02 2014 Martin Kolman <martin.kolman@gmail.com> - 0.45.4
+- fix theme color parsing on GTK GUI
+  - looks like the Silica theme broke it :)
+* Tue Feb 25 2014 Martin Kolman <martin.kolman@gmail.com> - 0.45.3
+- make page header look more native on Sailfish OS
+- tweak landscape and potrait page header size in Qt 5 GUI
+- also make it dependent on back button usage (back button needs thicker header)
+* Tue Feb 25 2014 Martin Kolman <martin.kolman@gmail.com> - 0.45.2
+- make sure persistent options are saved after every set in Qt 5 GUI
+ - as there seem to be issues with clean shutdow for icon launched packages on Sailfish OS
+* Tue Feb 25 2014 Martin Kolman <martin.kolman@gmail.com> - 0.45.1
+- add support for map layer switching for the Qt 5 GUI
+- Qt 5 GUI list view visual tweeks
+ - better list item background coloring
+ - proper spacing
+* Sat Feb 22 2014 Martin Kolman <martin.kolman@gmail.com> - 0.44.8
+- fix links not showing up on the About page in the Qt 5 GUI
+* Sat Feb 22 2014 Martin Kolman <martin.kolman@gmail.com> - 0.44.7
+- fix version display with Qt 5 GUI
+* Sat Feb 22 2014 Martin Kolman <martin.kolman@gmail.com> - 0.44.6
+- fix version display
+* Sat Feb 22 2014 Martin Kolman <martin.kolman@gmail.com> - 0.44.5
+- use correct storage path for config files (respect device module override)
+* Sun Feb 16 2014 Martin Kolman <martin.kolman@gmail.com> - 0.44.4
+- add online search support
+ - address search using Nominatim
+ - Wikipedia search using Geonames
 * Tue Jan 28 2014 Martin Kolman <martin.kolman@gmail.com> - 0.44.3
 - add missing libsailfishapp-launcher depency (provides the sailfish-qml utility)
 * Sun Jan 26 2014 Martin Kolman <martin.kolman@gmail.com> - 0.44.2

@@ -1,1 +1,2 @@
-- add missing libsailfishapp-launcher depency (provides the sailfish-qml utility)
+- fix theme color parsing on GTK GUI
+  - looks like the Silica theme broke it :)
