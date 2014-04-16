@@ -1,3 +1,17 @@
+modrana (0.45.7) stable; urgency=low
+
+  * Tue Mar 11 2014 Martin Kolman <martin.kolman@gmail.com> - 0.45.7
+  *  - fix the Map1.eu and mtbmap layers not showing up in the map layer menu
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Tue, 11 Mar 2014 21:13:56 +0000
+
+modrana (0.45.6) stable; urgency=low
+
+  * Sun Mar 09 2014 Martin Kolman <martin.kolman@gmail.com> - 0.45.6
+  *  - also show scroll decorator on the map layer selector in Sailfish GUI
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Sun, 09 Mar 2014 23:08:31 +0000
+
 modrana (0.45.5) stable; urgency=low
 
   * Sun Mar 09 2014 Martin Kolman <martin.kolman@gmail.com> - 0.45.5
