@@ -1,3 +1,12 @@
+* Wed Apr 16 2014 Martin Kolman <martin.kolman@gmail.com> - 0.46.1
+- local search works again thanks to a patch provided by Geoff Kuenning - thanks a lot ! :)
+- it is now possible to set local search radius in the GTK GUI (in options and directly in the search menu with a toggle button)
+- map display and dragging should now be faster
+- automatic map tile downloading has been rewritten and should be now more efficient
+- batch tile download has been rewritten and improved - should be now more efficient and faster
+- the tile hnadling code is now in much better shape overall
+- the batch tile menu in GTK GUI no longer lags and has a more logical structure
+- fix tile downloading not working in Sailfish GUI due to Python 3.4 breaking old bundled version of Urllib 3
 * Tue Mar 11 2014 Martin Kolman <martin.kolman@gmail.com> - 0.45.7
 - fix the Map1.eu and mtbmap layers not showing up in the map layer menu
 * Sun Mar 09 2014 Martin Kolman <martin.kolman@gmail.com> - 0.45.6
