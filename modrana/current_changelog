@@ -1,1 +1,1 @@
-- fix tile URL generation for one of the providers
+- disable tile id debugging in pinchmap that was left on by mistake

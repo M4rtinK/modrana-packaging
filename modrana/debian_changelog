@@ -1,3 +1,10 @@
+modrana (0.46.3) stable; urgency=low
+
+  * Thu Apr 17 2014 Martin Kolman <martin.kolman@gmail.com> - 0.46.3
+  *  - disable tile id debugging in pinchmap that was left on by mistake
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Thu, 17 Apr 2014 22:30:04 +0000
+
 modrana (0.46.2) stable; urgency=low
 
   * Thu Apr 17 2014 Martin Kolman <martin.kolman@gmail.com> - 0.46.2
