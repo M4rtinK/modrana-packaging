@@ -1,3 +1,5 @@
+* Thu Apr 17 2014 Martin Kolman <martin.kolman@gmail.com> - 0.46.2
+- fix tile URL generation for one of the providers
 * Wed Apr 16 2014 Martin Kolman <martin.kolman@gmail.com> - 0.46.1
 - local search works again thanks to a patch provided by Geoff Kuenning - thanks a lot ! :)
 - it is now possible to set local search radius in the GTK GUI (in options and directly in the search menu with a toggle button)

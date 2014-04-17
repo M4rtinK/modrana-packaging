@@ -1,3 +1,10 @@
+modrana (0.46.2) stable; urgency=low
+
+  * Thu Apr 17 2014 Martin Kolman <martin.kolman@gmail.com> - 0.46.2
+  *  - fix tile URL generation for one of the providers
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Thu, 17 Apr 2014 20:01:26 +0000
+
 modrana (0.46.1) stable; urgency=low
 
   * Wed Apr 16 2014 Martin Kolman <martin.kolman@gmail.com> - 0.46.1
