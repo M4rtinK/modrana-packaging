@@ -1,1 +1,1 @@
-- disable tile id debugging in pinchmap that was left on by mistake
+- don't include the backported Urllib 3 and argparse in the Sailfish package

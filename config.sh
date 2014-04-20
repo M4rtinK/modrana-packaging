@@ -6,7 +6,7 @@
 export APP_NAME='modrana'
 export APP_VERSION_MAIN='0'
 export APP_VERSION_MINOR='46'
-export APP_VERSION_BUILD='3'
+export APP_VERSION_BUILD='4'
 
 export LOG_FOLDER_NAME=build_logs
 export LOG_FOLDER=${APP_NAME}/${LOG_FOLDER_NAME}/
@@ -17,6 +17,6 @@ export LOG_FOLDER=${APP_NAME}/${LOG_FOLDER_NAME}/
 ## "EOF"
 
 export APP_CHANGELOG=$( cat <<EOF
-- disable tile id debugging in pinchmap that was left on by mistake
+- don't include the backported Urllib 3 and argparse in the Sailfish package
 EOF
 )

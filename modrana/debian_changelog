@@ -1,3 +1,10 @@
+modrana (0.46.4) stable; urgency=low
+
+  * Thu Apr 17 2014 Martin Kolman <martin.kolman@gmail.com> - 0.46.4
+  *  - don't include the backported Urllib 3 and argparse in the Sailfish package
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Thu, 17 Apr 2014 22:53:23 +0000
+
 modrana (0.46.3) stable; urgency=low
 
   * Thu Apr 17 2014 Martin Kolman <martin.kolman@gmail.com> - 0.46.3
