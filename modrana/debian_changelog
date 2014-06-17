@@ -1,3 +1,32 @@
+modrana (0.47.1) stable; urgency=low
+
+  * Sun Jun 08 2014 Martin Kolman <martin.kolman@gmail.com> - 0.47.1
+  *  - the QtQuick GUI now downloads new tiles asynchronously
+  *   - much faster asynchronous tile loading !
+  *   - no more synchronous tile download stalls !
+  *   - no more GUI freezes when starting modRana without connectivity !
+  *   - tiles currently on the screen have a diwnload priority (LiFo download queue)
+  *   - if the queue is full, old download requests that are probably no longer visible are dropped
+  *   - proper tile download error hanling & retry support
+  *   - proper tile download feedback
+  *   - tile handling debug support
+  *  - fix tiles stuck on "Downloading"/"Loading" in GTK GUI
+  *  - fix weird tile loading artifacts in overlay mode in the GTK GUI
+  *  - remove all Cloudmade layers as they were discontinue in the first half of May
+  *  - change Sailfish OS profile folder name to harbour-modrana and migrate all data to the new folders
+  *   - this is fully automatic and no user interaction is needed
+  *   - this makes modRana Harbour compliant in regards to profile paths
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Sun, 08 Jun 2014 14:38:59 +0000
+
+modrana (0.46.5) stable; urgency=low
+
+  * Sun Apr 20 2014 Martin Kolman <martin.kolman@gmail.com> - 0.46.5
+  *  - fix saving of local search results to POI database
+  *  - fix batch download breaking for some batches
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Sun, 20 Apr 2014 13:24:26 +0000
+
 modrana (0.46.4) stable; urgency=low
 
   * Thu Apr 17 2014 Martin Kolman <martin.kolman@gmail.com> - 0.46.4
