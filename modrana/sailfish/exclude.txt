@@ -17,5 +17,9 @@ modules/mod_route/monav_amd64
 modules/mod_route/monav_i386
 # backported modules not needed on Python 3.4
 # (they are already part of the standard library)
-core/backports/urllib3_python25
-core/backports/argparse
+core/backports
+# bundled modules not needed on Sailfish OS
+# as they are already available by default
+# or not needed by the Qt 5 GUI
+core/bundle/simplejson
+core/bundle/pycha
