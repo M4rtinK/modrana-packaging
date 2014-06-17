@@ -1,3 +1,13 @@
+modrana (0.47.2) stable; urgency=low
+
+  * Tue Jun 17 2014 Martin Kolman <martin.kolman@gmail.com> - 0.47.2
+  *  - add local search support to the Qt 5 GUI
+  *  - sort local search results by initial distance in Qt 5 GUI
+  *  - show search results on the map in Qt 5 GUI
+  *  - highlight the result that was selected in result list in red on map in Qt 5 GUI
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Tue, 17 Jun 2014 08:34:35 +0000
+
 modrana (0.47.1) stable; urgency=low
 
   * Sun Jun 08 2014 Martin Kolman <martin.kolman@gmail.com> - 0.47.1
