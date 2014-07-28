@@ -1,4 +1,6 @@
-- add local search support to the Qt 5 GUI
-- sort local search results by initial distance in Qt 5 GUI
-- show search results on the map in Qt 5 GUI
-- highlight the result that was selected in result list in red on map in Qt 5 GUI
+- added persistent overlay configuration support in Qt 5 GUI
+- aproximate batch download size is now displayed during batch download in GTK GUI
+- location debuging support in Qt 5 GUI
+- fixed zoom level not being saved in Qt 5 GUI
+- fixed current track logging settings not being displayed properly in GTK GUI
+- fixed URL for the Map1.eu map layer

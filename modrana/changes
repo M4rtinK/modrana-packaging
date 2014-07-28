@@ -1,3 +1,14 @@
+* Mon Jul 28 2014 Martin Kolman <martin.kolman@gmail.com> - 0.48.1
+- added persistent overlay configuration support in Qt 5 GUI
+- aproximate batch download size is now displayed during batch download in GTK GUI
+- location debuging support in Qt 5 GUI
+- fixed zoom level not being saved in Qt 5 GUI
+- fixed current track logging settings not being displayed properly in GTK GUI
+- fixed URL for the Map1.eu map layer
+* Tue Jun 17 2014 Martin Kolman <martin.kolman@gmail.com> - 0.47.3
+- move bundled modules to the bundle directory
+ - this should make unbundling on platfors that have the modules (Fedora, etc.) easier
+- remove some more bundled modules from the Sailfish OS package
 * Tue Jun 17 2014 Martin Kolman <martin.kolman@gmail.com> - 0.47.2
 - add local search support to the Qt 5 GUI
 - sort local search results by initial distance in Qt 5 GUI
