@@ -1,3 +1,10 @@
+modrana (0.48.2) stable; urgency=low
+
+  * Mon Jul 28 2014 Martin Kolman <martin.kolman@gmail.com> - 0.48.2
+  *  - add a missing module to the Sailfish OS package
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Tue, 29 Jul 2014 00:33:23 +0000
+
 modrana (0.48.1) stable; urgency=low
 
   * Mon Jul 28 2014 Martin Kolman <martin.kolman@gmail.com> - 0.48.1

@@ -1,3 +1,5 @@
+* Mon Jul 28 2014 Martin Kolman <martin.kolman@gmail.com> - 0.48.2
+- add a missing module to the Sailfish OS package
 * Mon Jul 28 2014 Martin Kolman <martin.kolman@gmail.com> - 0.48.1
 - added persistent overlay configuration support in Qt 5 GUI
 - aproximate batch download size is now displayed during batch download in GTK GUI
