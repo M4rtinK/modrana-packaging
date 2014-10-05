@@ -159,7 +159,7 @@ function prepare_sailfish_source {
     ## move the qml folder to future install folder top-level
     mv $qt5_qml_path ${APP_NAME}/src
     
-    ## move the UC Silica module to the QML folder because #unline qmlscene, the 
+    ## move the UC Silica module to the QML folder because #unlike qmlscene, the
     ## Sailfish QML launcher can't be bothered to support inclusing additional import paths
     mv ${APP_NAME}/src/qml/universal_components/silica/UC ${APP_NAME}/src/qml/UC
     rm -rf ${APP_NAME}/src/qml/universal_components/
@@ -168,7 +168,7 @@ function prepare_sailfish_source {
 
     ## thanky you captan sailfish-qml !
     ## without you, we won't be able to learn such nice Bash commands :)
-    function replace_import {
+    function replace_import1 {
         patern=modrana/src/qml/modrana_components/
         if [[ $1 = $patern* ]]
         then
@@ -178,10 +178,34 @@ function prepare_sailfish_source {
         fi
 
     }
+    function replace_import2 {
+        patern=modrana/src/qml/backend/
+        if [[ $1 = $patern* ]]
+        then
+            sed -i 's/import UC 1\.0/import "\..\/UC"/g' $1
+        else
+            sed -i 's/import UC 1\.0/import "\.\/UC"/g' $1
+        fi
 
-    export -f replace_import
+    }
+    function replace_import3 {
+        patern=modrana/src/qml/sailfish_specific/
+        if [[ $1 = $patern* ]]
+        then
+            sed -i 's/import UC 1\.0/import "\..\/UC"/g' $1
+        else
+            sed -i 's/import UC 1\.0/import "\.\/UC"/g' $1
+        fi
 
-    find ${APP_NAME}/src/qml -type f -exec bash -c 'replace_import "$0"' {} \;
+    }
+
+    export -f replace_import1
+    export -f replace_import2
+    export -f replace_import3
+
+    find ${APP_NAME}/src/qml -type f -exec bash -c 'replace_import1 "$0"' {} \;
+    find ${APP_NAME}/src/qml -type f -exec bash -c 'replace_import2 "$0"' {} \;
+    find ${APP_NAME}/src/qml -type f -exec bash -c 'replace_import3 "$0"' {} \;
 
     ## tell the main QML script the platform id so that we don't have to run
     ## platform detection
