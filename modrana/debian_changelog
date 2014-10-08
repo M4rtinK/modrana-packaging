@@ -1,3 +1,10 @@
+modrana (0.49.2) stable; urgency=low
+
+  * Sun Oct 05 2014 Martin Kolman <martin.kolman@gmail.com> - 0.49.2
+  *  - remove a file breaking build
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Sun, 05 Oct 2014 22:33:20 +0000
+
 modrana (0.49.1) stable; urgency=low
 
   * Sun Oct 05 2014 Martin Kolman <martin.kolman@gmail.com> - 0.49.1
