@@ -146,8 +146,8 @@ function prepare_sailfish_source {
     echo "* mangling source for Sailfish"
 
     ## change Universal Component import to relative imports
-    ## as the Sailfish QML launcher is too stupid to support
-    ## adding custom import paths and using a C++ loader
+    ## as the Sailfish QML launcher is not able to support
+    ## adding custom import paths and using a custom C++ loader
     ## doesn't seem like a good idea for othervise
     ## pure Python/QML application
 
@@ -160,14 +160,14 @@ function prepare_sailfish_source {
     mv $qt5_qml_path ${APP_NAME}/src
     
     ## move the UC Silica module to the QML folder because #unlike qmlscene, the
-    ## Sailfish QML launcher can't be bothered to support inclusing additional import paths
+    ## Sailfish QML launcher does not support appending additional import paths
     mv ${APP_NAME}/src/qml/universal_components/silica/UC ${APP_NAME}/src/qml/UC
     rm -rf ${APP_NAME}/src/qml/universal_components/
     
     ## replace proper module import with directory-relative ones
 
-    ## thanky you captan sailfish-qml !
-    ## without you, we won't be able to learn such nice Bash commands :)
+    ## thanks to sailfish-qml I have been able to learn all these nice
+    ## bash & sed commands :)
     function replace_import1 {
         patern=modrana/src/qml/modrana_components/
         if [[ $1 = $patern* ]]
@@ -215,9 +215,9 @@ function prepare_sailfish_source {
     ## so we have to account for this (why oh why we need to do such hacks...)    
     sed -i 's/property string \_PYTHON\_IMPORT\_PATH\_/property string \_PYTHON\_IMPORT\_PATH\_ \: "\/usr\/share\/harbour-modrana"/g' ${APP_NAME}/src/qml/main.qml
 
-    ## furthermore the stupid Sailfish QML launcher needs the app structured like this:
+    ## furthermore the inflexible Sailfish QML launcher needs the app structured like this:
     ## /usr/share/harbour-<app name>/qml/harbour-<app name>.qml
-    ## so we need to rename the sensibly named main.qml to modrana.qml
+    ## so we need to rename the sensibly named main.qml to harbour-modrana.qml
     mv ${APP_NAME}/src/qml/main.qml ${APP_NAME}/src/qml/harbour-${APP_NAME}.qml
 
     ## also byte-compile all Python code
