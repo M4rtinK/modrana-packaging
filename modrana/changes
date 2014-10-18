@@ -1,3 +1,6 @@
+* Wed Oct 08 2014 Martin Kolman <martin.kolman@gmail.com> - 0.49.3
+- add a map screen compass rose
+ - it can be turned on/off and its opacity changed in Options->UI
 * Sun Oct 05 2014 Martin Kolman <martin.kolman@gmail.com> - 0.49.2
 - remove a file breaking build
 * Sun Oct 05 2014 Martin Kolman <martin.kolman@gmail.com> - 0.49.1

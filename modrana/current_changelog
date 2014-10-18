@@ -1,1 +1,2 @@
-- remove a file breaking build
+- add a map screen compass rose
+ - it can be turned on/off and its opacity changed in Options->UI
