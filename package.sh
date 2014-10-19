@@ -220,9 +220,24 @@ function prepare_sailfish_source {
     ## so we need to rename the sensibly named main.qml to harbour-modrana.qml
     mv ${APP_NAME}/src/qml/main.qml ${APP_NAME}/src/qml/harbour-${APP_NAME}.qml
 
-    ## also byte-compile all Python code
-    echo "* byte-compiling Python code with Python 3.3"
-    python3.3 -m compileall ${APP_NAME}/src &> ${APP_NAME}/build_logs/sailfish_python_compileall.log
+    ## also byte-compile all Python code to make startup faster
+    ## TODO: make this during build from the spec file
+    echo "* byte-compiling Python code with Python 3.4"
+    ## as Python 3.4 might not be available in the given sytem
+    ## where packaging is being done, you need to provide a
+    ## "python3.4_bytecompile.sh" script that accepts absolute path to the folder
+    ## with Python source code to bytecompile, which can for example:
+    ## * just run system Python 3.4 if available
+    ## * compile on the Jolla using sshfs & ssh
+    ## * use a docker image with Python 3.4
+    if [ -f python3.4_bytecompile.sh ];
+    then
+        echo "* byte-compile script found, generating bytecode"
+        #bash python3.4_bytecompile.sh ${APP_NAME}/src &> ${APP_NAME}/build_logs/sailfish_python_compileall.log
+        bash python3.4_bytecompile.sh ${start_path}/${APP_NAME}/src
+    else
+        echo "* byte-compile script not found, skipping bytecode generation"
+    fi
 }
 
 function build_sailfish_package {
