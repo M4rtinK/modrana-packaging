@@ -282,6 +282,34 @@ function build_fremantle_package {
     cp ${APP_NAME}/dist/*.* archive/fremantle/current
 }
 
+function build_fedora_package {
+    ## build the Fedora tarball & specfile
+    echo "** building the Fedora package"
+    prepare_build
+
+    echo "* cleaning source for Fedora"
+
+    mv ${APP_NAME}/src ${APP_NAME}/src_full
+
+    ## clean the source folder based on rsync exclude list in
+    ## ${APP_name}/fedora/exclude.txt
+    rsync -ar --exclude-from  ${APP_NAME}/fedora/exclude.txt ${APP_NAME}/src_full/ ${APP_NAME}/src
+
+    ## now we can remove the full folder
+    rm -rf ${APP_NAME}/src_full
+
+    ## run the Fedora setup.py
+    run_setup_py sdist_fedora
+
+    ## archive the Fedora package
+    cp ${APP_NAME}/dist/*.* archive/fedora
+    ## also replace the current package
+    rm -f archive/fedora/current/*.tar.gz
+    rm -f archive/fedora/current/*.changes
+    rm -f archive/fedora/current/*.dsc
+    cp ${APP_NAME}/dist/*.* archive/fedora/current
+}
+
 function make_tarball {
     ## create a plain tarball
     mkdir ${APP_NAME}/tmp_tarballing/
@@ -302,6 +330,7 @@ build_harmattan_package
 build_nemo_package
 build_sailfish_package
 build_fremantle_package
+build_fedora_package
 make_tarball
 
 ## replace the OBS package by newer version
