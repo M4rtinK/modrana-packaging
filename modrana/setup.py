@@ -36,11 +36,14 @@ try:
   from sdist_maemo import sdist_maemo as _sdist_maemo
   from sdist_maemo import sdist_nemo as _sdist_nemo
   from sdist_maemo import sdist_sailfish as _sdist_sailfish
-#  from sdist_maemo import sdist_fedora as _sdist_fedora
+  from sdist_maemo import sdist_fedora as _sdist_fedora
   sdist_maemo = _sdist_maemo
   sdist_nemo = _sdist_nemo
   sdist_sailfish = _sdist_sailfish
-except ImportError:
+  sdist_fedora = _sdist_fedora
+except ImportError as e:
+  print("ASDASDASDASD")
+  print(e)
   sdist_maemo = None
   sdist_nemo = None
   sdist_fedora = None
@@ -104,6 +107,9 @@ elif TARGET == "sdist_sailfish":
   ICON_SIZES=[86]
   APP_NAME="harbour-modrana"  # as always, blame Harbour FAQ! :P
   ICON_NAME="modrana"
+elif TARGET == "sdist_fedora":
+  INSTALLATION_PATH="/usr/share/modrana"
+  INPUT_DESKTOP_FILE="fedora/%s.desktop" % APP_NAME
 else:
   INPUT_DESKTOP_FILE="%s.desktop" % APP_NAME
 
@@ -195,6 +201,15 @@ if TARGET == "sdist_nemo":
   dataFiles.extend( [ ("/usr/bin", ["nemo/modrana-gtk"]) ] )
   dataFiles.extend( [ ("/usr/bin", ["nemo/modrana-qml"]) ] )
 
+## for Fedora, add startup script to /usr/bin
+if TARGET == "sdist_fedora":
+  dataFiles.extend( [ ("/usr/bin", ["fedora/modrana"]) ] )
+  dataFiles.extend( [ ("/usr/bin", ["fedora/modrana-gtk"]) ] )
+  dataFiles.extend( [ ("/usr/bin", ["fedora/modrana-qt5"]) ] )
+  # add modRana-qt5 desktop file and icon
+  dataFiles.extend([ (DESKTOP_FILE_PATH, ["fedora/modrana-qt5.desktop"]) ])
+  dataFiles.extend([ ("/usr/share/icons/hicolor/64x64/apps", ["fedora/modrana-qml.png"]) ])
+
 setup(
   name=APP_NAME,
   version=VERSION,
@@ -217,6 +232,7 @@ setup(
     'sdist_harmattan': sdist_maemo,
     'sdist_nemo': sdist_nemo,
     'sdist_sailfish': sdist_sailfish,
+    'sdist_fedora': sdist_fedora,
   },
   options={
     "sdist_ubuntu": {
@@ -313,6 +329,15 @@ exit 0
       "buildversion": str(BUILD),
       "depends": "python3-base, sailfishsilica-qt5, mapplauncherd-booster-silica-qt5, pyotherside-qml-plugin-python3-qt5, libsailfishapp-launcher",
       "build_depends" : "python3-base",
+      "architecture": "any",
+    },
+    "sdist_fedora": {
+      "section": "Applications/Productivity",
+      "copyright": "gpl",
+      "changelog": CHANGES,
+      "buildversion": str(BUILD),
+      "depends": "python3, pyotherside, qt5-qtdeclarative-devel, qt5-qtquickcontrols, qt5-qtsensors, pygtk2",
+      "build_depends" : "python3",
       "architecture": "any",
     },
     "bdist_rpm": {
