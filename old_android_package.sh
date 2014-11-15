@@ -3,7 +3,7 @@
 # Android packaging script
 # TODO: merge this with the main script
 
-PROJECT_FOLDER="modrana/android/android-project"
+PROJECT_FOLDER="modrana/android/old_android-project"
 VERSION_STRING=`cat modrana/version`
 TOPLEVEL=`pwd`
 INPUT_APK="modrana-debug.apk"
