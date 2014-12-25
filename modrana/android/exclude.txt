@@ -1,0 +1,37 @@
+# remove the GUI modules that don't run on Sailfish
+modules/gui_modules/gui_gtk.py
+modules/gui_modules/gui_qml
+# remove the silica & glacier UC backends
+modules/gui_modules/gui_qt5/qml/universal_components/silica
+modules/gui_modules/gui_qt5/qml/universal_components/glacier
+# remove some bigger device modules that are not needed on sailfish
+modules/device_modules/device_n900.py
+modules/device_modules/device_n9.py
+modules/device_modules/n900_maemo5_portrait.py
+modules/device_modules/device_bb10.py
+modules/device_modules/device_nemo.py
+modules/device_modules/device_neo.py
+modules/device_modules/device_android_chroot.py
+modules/device_modules/device_jolla.py
+# other modules that are currently not needed on Sailfish
+modules/pyrender
+modules/pyroutelib2
+modules/mod_route/monav_armv7
+modules/mod_route/monav_amd64
+modules/mod_route/monav_i386
+# backported modules not needed on Python 3.4
+# (they are already part of the standard library)
+#core/backports
+core/backports/urllib3_python25
+# bundled modules not needed on Android
+# as they are already available by default
+# or not needed by the Qt 5 GUI
+core/bundle/simplejson
+core/bundle/pycha
+modules/mod_route/__google
+#git
+.git
+# misc
+__pycache__
+.idea
+*.pyc
