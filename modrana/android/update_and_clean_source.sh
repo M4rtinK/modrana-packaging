@@ -9,6 +9,3 @@ rm -rf modrana-android/modrana
 mkdir modrana-android/modrana
 
 rsync -ar --exclude-from exclude.txt ../../modrana-git/ modrana-android/modrana/
-cd modrana-android
-./qrcgen.py modrana "/"
-cd ..
