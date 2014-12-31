@@ -1,3 +1,11 @@
-- fix the compass rose not showing up in the Qt 5 GUI on Sailfish OS
-- fix a typo preventing location startup if no last known position exists in Qt 5 GUI
-- fix a race condition that could prevent some map tiles from working properly in Qt 5 GUI
+* layer timeout support (Frederic Ferner)
+ * dynamic map layers (traffic, weather, etc.) now automatically load new tiles once the oled ones time out
+ * not yet handles staring at the same part of map for hours
+ * you need to move the map a bit so that the tiles are requested again & refetched
+* support for setting network usage mode in Qt 5 GUI (Frederic Ferner)
+ * max - unlimited network usage
+ * minimal - no automatic tile download
+* Thanks a lot to Frederic for these nice two patches! :)
+* fix text sizing on icon grid
+* fix compass rose display with qrc (Android)
+ * it still does not rotate on Android some reason :)
