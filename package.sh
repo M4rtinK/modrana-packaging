@@ -236,7 +236,8 @@ function prepare_sailfish_source {
         #bash python3.4_bytecompile.sh ${APP_NAME}/src &> ${APP_NAME}/build_logs/sailfish_python_compileall.log
         bash python3.4_bytecompile.sh ${start_path}/${APP_NAME}/src
     else
-        echo "* byte-compile script not found, skipping bytecode generation"
+        echo "* byte-compile script not found, using local python 3.4"
+        python3.4 -m compileall ${start_path}/${APP_NAME}/src
     fi
 }
 
