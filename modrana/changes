@@ -1,3 +1,7 @@
+* Thu Jan 01 2015 Martin Kolman <martin.kolman@gmail.com> - 0.50.2
+* first official modRana release for Android! :)
+* make theme parsing more robust
+* fix window sizing regression on Sailfish OS
 * Wed Dec 31 2014 Martin Kolman <martin.kolman@gmail.com> - 0.50.1
 * layer timeout support (Frederic Ferner)
  * dynamic map layers (traffic, weather, etc.) now automatically load new tiles once the oled ones time out

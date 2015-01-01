@@ -1,3 +1,15 @@
+modrana (0.50.2) stable; urgency=low
+
+  * Thu Jan 01 2015 Martin Kolman <martin.kolman@gmail.com> - 0.50.2
+  *  
+  * first official modRana release for Android! :)
+  *  
+  * make theme parsing more robust
+  *  
+  * fix window sizing regression on Sailfish OS
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Thu, 01 Jan 2015 21:16:36 +0000
+
 modrana (0.50.1) stable; urgency=low
 
   * Wed Dec 31 2014 Martin Kolman <martin.kolman@gmail.com> - 0.50.1
