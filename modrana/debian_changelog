@@ -1,3 +1,11 @@
+modrana (0.50.3) stable; urgency=low
+
+  * Thu Jan 01 2015 Martin Kolman <martin.kolman@gmail.com> - 0.50.3
+  *  
+  * Python 2.5 compatibility fixes
+
+ -- Martin Kolman <martin.kolman@gmail.com>  Thu, 01 Jan 2015 22:29:18 +0000
+
 modrana (0.50.2) stable; urgency=low
 
   * Thu Jan 01 2015 Martin Kolman <martin.kolman@gmail.com> - 0.50.2

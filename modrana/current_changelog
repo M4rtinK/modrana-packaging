@@ -1,3 +1,1 @@
-* first official modRana release for Android! :)
-* make theme parsing more robust
-* fix window sizing regression on Sailfish OS
+* Python 2.5 compatibility fixes
