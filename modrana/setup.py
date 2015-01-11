@@ -327,7 +327,7 @@ exit 0
       "copyright": "gpl",
       "changelog": CHANGES,
       "buildversion": str(BUILD),
-      "depends": "python3-base, sailfishsilica-qt5, mapplauncherd-booster-silica-qt5, pyotherside-qml-plugin-python3-qt5, libsailfishapp-launcher",
+      "depends": "python3-base, sailfishsilica-qt5, mapplauncherd-booster-silica-qt5, pyotherside-qml-plugin-python3-qt5, libsailfishapp-launcher, qt5-qtdeclarative-import-positioning, qt5-qtpositioning",
       "build_depends" : "python3-base",
       "architecture": "any",
     },
