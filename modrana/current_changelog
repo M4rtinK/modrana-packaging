@@ -1,1 +1,7 @@
-* the actual Python 2.5 compatibility fixes
+- make it possible to show the back button on Sailfish OS
+ - can be enabled from Options->UI
+- fix Sqlite tile storage with Qt 5 GUI
+- fix the Animate switch to work correctly on Sailfish OS
+- fix a few page push transitions that have not respected the animation setting in Qt 5 GUI
+- fix back button in the detail menu of a POI restored on startup breaking the GTK GUI
+- use proper logging during batch tile download 

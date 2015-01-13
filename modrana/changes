@@ -1,3 +1,11 @@
+* Tue Jan 13 2015 Martin Kolman <martin.kolman@gmail.com> - 0.50.5
+- make it possible to show the back button on Sailfish OS
+ - can be enabled from Options->UI
+- fix Sqlite tile storage with Qt 5 GUI
+- fix the Animate switch to work correctly on Sailfish OS
+- fix a few page push transitions that have not respected the animation setting in Qt 5 GUI
+- fix back button in the detail menu of a POI restored on startup breaking the GTK GUI
+- use proper logging during batch tile download
 * Fri Jan 02 2015 Martin Kolman <martin.kolman@gmail.com> - 0.50.4
 - the actual Python 2.5 compatibility fixes
 * Thu Jan 01 2015 Martin Kolman <martin.kolman@gmail.com> - 0.50.3
