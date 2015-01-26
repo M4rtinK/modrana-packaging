@@ -5,8 +5,8 @@
 
 export APP_NAME='modrana'
 export APP_VERSION_MAIN='0'
-export APP_VERSION_MINOR='50'
-export APP_VERSION_BUILD='5'
+export APP_VERSION_MINOR='51'
+export APP_VERSION_BUILD='1'
 
 export LOG_FOLDER_NAME=build_logs
 export LOG_FOLDER=${APP_NAME}/${LOG_FOLDER_NAME}/
@@ -17,12 +17,20 @@ export LOG_FOLDER=${APP_NAME}/${LOG_FOLDER_NAME}/
 ## "EOF"
 
 export APP_CHANGELOG=$( cat <<EOF
-- make it possible to show the back button on Sailfish OS
- - can be enabled from Options->UI
-- fix Sqlite tile storage with Qt 5 GUI
-- fix the Animate switch to work correctly on Sailfish OS
-- fix a few page push transitions that have not respected the animation setting in Qt 5 GUI
-- fix back button in the detail menu of a POI restored on startup breaking the GTK GUI
-- use proper logging during batch tile download 
+- add track logging support to the Qt 5 GUI
+ - accessible from Tracks->Record
+ - output to the GPX format
+ - path to the tracklogs folder is shown
+  - option to symlink the tracklogs folder to ~/Documents on Sailfish OS
+ - robust dual temp file storage mechanism
+ - tracklog are restored on next start if shutdown or crash occurs during logging
+ - it is possible to pause started logging
+ - proper landscape and protrait orientation layouts
+ - keep alive support on Sailfish OS
+  - this should assure uninterrupted track recording even with screen turned off
+- make track logging Python 3 compatible
+- improved track logging log messages
+- fix free space dispplay on Android
+- QML -> Python logging now should be able to handle any QML/Javascript objects
 EOF
 )
