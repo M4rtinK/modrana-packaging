@@ -1,3 +1,14 @@
+* Mon Jan 26 2015 Martin Kolman <martin.kolman@gmail.com> - 0.51.2
+- fix tile loading from local storage
+ - I've apparently managed to break it in the previous version :P
+- make tile loading from local storage more robust
+ - it is now file extension independent 
+  - modRana will fetch any suitable image for the given tile coordinates
+  - this should prevent stored images from becoming inaccessible it layer extension changes
+ - modRana now detects if the tile that has been loaded is not an image
+  - all such cases are now logged
+  - for files modRana tries to find another file with the same coordinates that is an image
+- improved log messages for tile loading debugging
 * Sun Jan 25 2015 Martin Kolman <martin.kolman@gmail.com> - 0.51.1
 - add track logging support to the Qt 5 GUI
  - accessible from Tracks->Record

@@ -6,7 +6,7 @@
 export APP_NAME='modrana'
 export APP_VERSION_MAIN='0'
 export APP_VERSION_MINOR='51'
-export APP_VERSION_BUILD='1'
+export APP_VERSION_BUILD='2'
 
 export LOG_FOLDER_NAME=build_logs
 export LOG_FOLDER=${APP_NAME}/${LOG_FOLDER_NAME}/
@@ -17,20 +17,15 @@ export LOG_FOLDER=${APP_NAME}/${LOG_FOLDER_NAME}/
 ## "EOF"
 
 export APP_CHANGELOG=$( cat <<EOF
-- add track logging support to the Qt 5 GUI
- - accessible from Tracks->Record
- - output to the GPX format
- - path to the tracklogs folder is shown
-  - option to symlink the tracklogs folder to ~/Documents on Sailfish OS
- - robust dual temp file storage mechanism
- - tracklog are restored on next start if shutdown or crash occurs during logging
- - it is possible to pause started logging
- - proper landscape and protrait orientation layouts
- - keep alive support on Sailfish OS
-  - this should assure uninterrupted track recording even with screen turned off
-- make track logging Python 3 compatible
-- improved track logging log messages
-- fix free space dispplay on Android
-- QML -> Python logging now should be able to handle any QML/Javascript objects
+- fix tile loading from local storage
+ - I've apparently managed to break it in the previous version :P
+- make tile loading from local storage more robust
+ - it is now file extension independent 
+  - modRana will fetch any suitable image for the given tile coordinates
+  - this should prevent stored images from becoming inaccessible it layer extension changes
+ - modRana now detects if the tile that has been loaded is not an image
+  - all such cases are now logged
+  - for files modRana tries to find another file with the same coordinates that is an image
+- improved log messages for tile loading debugging
 EOF
 )
